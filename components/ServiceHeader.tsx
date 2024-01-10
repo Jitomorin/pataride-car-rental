@@ -1,4 +1,3 @@
-import Avatar from "components/AuthorAvatar";
 import CoverImage from "components/CoverImage";
 import Date from "components/PostDate";
 import PostTitle from "components/PostTitle";

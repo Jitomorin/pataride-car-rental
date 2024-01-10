@@ -22,7 +22,6 @@ import {
 } from "contexts/newsletter-modal.context";
 import { NavItems } from "types";
 import Router, { useRouter } from "next/router";
-import Spinner from "components/Spinner";
 import CompanyFooter from "@/components/CompanyFooter";
 import StickySocialMediaBar from "@/components/StickySocialMediaBar";
 import styled from "styled-components";

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ServicesRow from "./ServicesRow";
 import { media } from "@/utils/media";
 
 export default function Slider() {
@@ -57,7 +56,7 @@ export default function Slider() {
       <ImageWrapper>
         <Container>
           <Title>We are the architects of thriving workplaces</Title>
-          <ServicesRow />
+          {/* <ServicesRow /> */}
         </Container>
       </ImageWrapper>
       {/* <ServicesWrapper>
