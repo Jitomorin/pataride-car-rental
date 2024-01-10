@@ -2586,6 +2586,30 @@ export const ThemeLight = styled.div`
     /* background-color: #000; */
     padding: 10rem 0;
   }
+  .social-bar {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform: translateY(-50%);
+    margin-left: 0.4rem;
+    z-index: 1000;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  .share-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .bar-links {
+    cursor: pointer;
+    padding: 0, 0.5rem;
+  }
+  .bar-links:hover {
+    scale: 1.2;
+  }
 `;
 export const ThemeDark = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap");
@@ -5212,6 +5236,30 @@ export const ThemeDark = styled.div`
   .privacy-policy-container {
     background-color: #17191a;
     padding: 10rem 0;
+  }
+  .social-bar {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform: translateY(-50%);
+    margin-left: 0.4rem;
+    z-index: 1000;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  .share-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .bar-links {
+    cursor: pointer;
+    padding: 0, 0.5rem;
+  }
+  .bar-links:hover {
+    scale: 1.2;
   }
 `;
 
