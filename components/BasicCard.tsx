@@ -87,6 +87,8 @@ const Card = styled.div<{ isTransparent: boolean }>`
   justify-content: center;
   align-items: center;
   padding: 2.5rem;
+  border: ${(props) =>
+    props.theme === "light" ? "1px solid #d5d5d5" : "none"};
   ${(props) =>
     props.isTransparent
       ? "background: transparent;"

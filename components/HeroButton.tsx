@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { useTheme } from "./Theme";
+import { media } from "@/utils/media";
 
 const Wrapper = styled.div`
   padding: 1.5rem 0;
   filter: url("#goo");
+  ${media("<=tablet")} {
+    text-align: center;
+    align-items: center;
+  }
 `;
 
 const Button = styled.a`
@@ -110,13 +115,65 @@ const GooFilter = styled.svg`
   visibility: hidden;
   position: absolute;
 `;
+const HeroButt = styled.a<{ theme: any }>`
+  display: inline-block;
+  text-align: center;
+  background: ${(props) => (props.theme === "light" ? "#000" : "#fff")};
+  color: ${(props) => (props.theme === "light" ? "#fff" : "#000")};
+  font-weight: bold;
+  padding: 2rem 4rem;
+  line-height: 1;
+  border-radius: 10px;
+  position: relative;
+  /* min-width: 8.23em; */
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  transition: color 1s ease;
+  &:hover {
+    color: #f8d521;
+    transition: color 1s ease; /* Add a transition for the color change */
+  }
+
+  &:before,
+  &:after {
+    width: 4.4em;
+    height: 2.95em;
+    position: absolute;
+    content: "";
+    display: inline-block;
+    background: ${(props) => (props.theme === "light" ? "#000" : "#fff")};
+    border-radius: 50%;
+    transition: transform 1s ease;
+    transform: scale(0);
+    z-index: -1;
+  }
+
+  &:before {
+    top: -25%;
+    left: 20%;
+  }
+
+  &:after {
+    bottom: -25%;
+    right: 20%;
+  }
+
+  &:hover:before,
+  &:hover:after {
+    transform: none;
+  }
+`;
 
 const HeroButton = ({ name, link }: any) => {
   const { theme }: any = useTheme();
   return (
     <>
       <Wrapper>
-        {
+        <HeroButt theme={theme} href={link}>
+          {name}
+        </HeroButt>
+        {/* {
           theme === "dark" ? (
             <a className="hero_button_dark" href={link}>
               {name}
@@ -127,7 +184,7 @@ const HeroButton = ({ name, link }: any) => {
             </a>
           )
           // <Button href="#">Book Now</Button>
-        }
+        } */}
       </Wrapper>
       <GooFilter
         width="0"

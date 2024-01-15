@@ -7,15 +7,22 @@ import HeroButton from "@/components/HeroButton";
 import Button from "../components/Button";
 import styled from "styled-components";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { useTheme } from "@/components/Theme";
+
+const Wrapper = styled.section<{ theme: any }>`
+  background-color: ${(props) =>
+    props.theme === "light" ? "#fff" : "#050505"};
+`;
 
 function Seller() {
   const { user }: any = useAuthContext();
+  const { theme }: any = useTheme();
   return (
     <>
-      <Navbar />
-      <section className="models-section">
-        <HeroPages subRoute={false} name="Seller" />
-        <div className="container"></div>
+      {/* <Navbar /> */}
+      <Wrapper theme={theme}>
+        <HeroPages subRoute={false} name="Host" />
+        {/* <div className="container"></div> */}
         <Instructions />
         <InstructionsGrid />
         <ButtonWrapper>
@@ -25,7 +32,7 @@ function Seller() {
             <HeroButton name={"Become a seller"} link="/signup" />
           )}
         </ButtonWrapper>
-      </section>
+      </Wrapper>
     </>
   );
 }

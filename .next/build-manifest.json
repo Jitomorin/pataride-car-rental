@@ -17,11 +17,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/index.js"
     ],
-    "/404": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/404.js"
-    ],
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -36,6 +31,21 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/contact.js"
+    ],
+    "/register-car": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/register-car.js"
+    ],
+    "/rent-now": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/rent-now.js"
+    ],
+    "/seller": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/seller.js"
     ]
   },
   "ampFirstPages": []

@@ -7,10 +7,95 @@ import { v4 as uuidv4 } from "uuid";
 import React from "react";
 import Snackbar from "@/components/Snackbar";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+import { useTheme } from "@/components/Theme";
+import Container from "@/components/Container";
+
+const Wrapper = styled.section<{ theme: any }>`
+  background-color: ${(props) =>
+    props.theme === "light" ? "#fff" : "#050505"};
+`;
+const EnlistForm = styled.div<{ theme: any }>`
+  display: flex;
+  flex-direction: column;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+   margin 0 20rem;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  form label {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: ${(props) => (props.theme === "light" ? "#000" : "#fff")};
+  }
+  form label b {
+    color: #f8d521;
+  }
+  form input {
+    background-color: ${(props) =>
+      props.theme === "light" ? "#f2f2f2" : "#272a2c"};
+    color: ${(props) => (props.theme === "light" ? "#272a2c" : "#fff")};
+    padding: 19px 30px 19px 30px;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    margin-bottom: 2.3rem;
+  }
+  form select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: ${(props) =>
+      props.theme === "light" ? "#f2f2f2" : "#272a2c"};
+    color: ${(props) => (props.theme === "light" ? "#6E747C" : "#6E747C")};
+    padding: 19px 30px 19px 30px;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    margin-bottom: 2.3rem;
+  }
+  form textarea {
+    background-color: ${(props) =>
+      props.theme === "light" ? "#f2f2f2" : "#272a2c"};
+    border-radius: 10px;
+    height: 18rem;
+    padding: 19px 30px 19px 30px;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    margin-bottom: 2.5rem;
+    color: #fff;
+  }
+  form button {
+    background-color: #f8d521;
+    padding: 1.8rem 3rem;
+    border-radius: 10px;
+    /* box-shadow: 0 10px 15px 0 rgba(255, 83, 48, 0.35); */
+    transition: all 0.3s;
+    font-family: "Poppins", sans-serif;
+    /* border: 2px solid #ff4d30; */
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+  }
+  form button:hover {
+    scale: 1.02;
+  } /*# sourceMappingURL=styles.css.map */
+  @media (max-width: 768px) {
+    margin 0 2rem;
+  }
+`;
 
 const RegisterCar = () => {
   const { user }: any = useAuthContext();
   const router = useRouter();
+  const { theme }: any = useTheme();
   const [carName, setCarName] = React.useState("");
   const [carMake, setCarMake] = React.useState("Toyota");
   const [carModel, setCarModel] = React.useState("");
@@ -23,6 +108,12 @@ const RegisterCar = () => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] =
     React.useState("Default Message");
+
+  // React.useEffect(() => {
+  //   if (user === null) {
+  //     router.push("/login");
+  //   }
+  // }, [user]);
 
   const clearFields = () => {
     setCarName("");
@@ -101,10 +192,10 @@ const RegisterCar = () => {
 
   return (
     <>
-      <section className="models-section">
+      <Wrapper theme={theme}>
         <HeroPages name="Cars" />
-        <div className="container">
-          <div className="enlist-div__form">
+        <Container>
+          <EnlistForm theme={theme}>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -252,8 +343,8 @@ const RegisterCar = () => {
                 Register your car
               </button>
             </form>
-          </div>
-        </div>
+          </EnlistForm>
+        </Container>
         <Snackbar
           message={snackbarMessage}
           isVisible={snackbarOpen}
@@ -261,7 +352,7 @@ const RegisterCar = () => {
             setSnackbarOpen(false);
           }}
         />
-      </section>
+      </Wrapper>
     </>
   );
 };

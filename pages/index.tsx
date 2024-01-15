@@ -8,7 +8,7 @@ import PickCar from "@/components/PickCar";
 import Banner from "@/components/Banner";
 import ChooseUs from "@/components/ChooseUs";
 import Testimonials from "@/components/Testimonials";
-import RestAPI from "@/lib/APIComponent";
+import RestAPI from "@/components/RestAPI";
 
 const client = getClient();
 

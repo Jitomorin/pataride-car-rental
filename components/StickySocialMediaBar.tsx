@@ -24,9 +24,9 @@ export default function StickySocialMediaBar() {
     };
   }, []);
   return (
-    <div className="social-bar">
-      <div className="share-bar">
-        <div className="bar-links">
+    <Wrapper>
+      <ShareBar>
+        <SocialmediaLink>
           <Link
             target="_blank"
             href="https://www.linkedin.com/company/core-maestro-management/"
@@ -34,8 +34,8 @@ export default function StickySocialMediaBar() {
           >
             <LinkedinIcon size={isMobile ? 50 : 40} round={true} />
           </Link>
-        </div>{" "}
-        <div className="bar-links">
+        </SocialmediaLink>{" "}
+        <SocialmediaLink>
           <Link
             target="_blank"
             href="https://www.instagram.com/core.maestro.management/"
@@ -49,8 +49,8 @@ export default function StickySocialMediaBar() {
               height={isMobile ? 65 : 50}
             />
           </Link>
-        </div>{" "}
-        <div className="bar-links">
+        </SocialmediaLink>{" "}
+        <SocialmediaLink>
           <Link
             target="_blank"
             href="https://www.facebook.com/coremaestromanagement/"
@@ -58,8 +58,8 @@ export default function StickySocialMediaBar() {
           >
             <FacebookIcon size={isMobile ? 50 : 40} round={true} />
           </Link>
-        </div>{" "}
-        <div className="bar-links">
+        </SocialmediaLink>{" "}
+        <SocialmediaLink>
           <Link
             target="_blank"
             href="https://wa.me/message/ODRQQDIW57LEN1"
@@ -73,9 +73,9 @@ export default function StickySocialMediaBar() {
               height={isMobile ? 60 : 45}
             />
           </Link>
-        </div>{" "}
-      </div>
-    </div>
+        </SocialmediaLink>
+      </ShareBar>
+    </Wrapper>
   );
 }
 const Wrapper = styled.div`

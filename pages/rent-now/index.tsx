@@ -6,34 +6,52 @@ import { Car } from "@/components/CarData";
 import { GetServerSideProps } from "next";
 import { getClient } from "@/sanity/lib/client";
 import { readToken } from "@/sanity/env";
+import { useTheme } from "@/components/Theme";
+import styled from "styled-components";
+import Container from "@/components/Container";
+import { media } from "@/utils/media";
 
 export interface RentNowProps {
   cars: Car[];
 }
 
+const Wrapper = styled.section<{ theme: any }>`
+  background-color: ${(props) =>
+    props.theme === "light" ? "#fff" : "#050505"};
+`;
+const Models = styled.section<{ theme: any }>`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 3rem;
+  align-items: center;
+  text-align: center;
+  padding: 10rem 0;
+  width: 110rem;
+  margin: 0 auto;
+  ${media("<=desktop")} {
+    grid-template-columns: 1fr 1fr;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  ${media("<=tablet")} {
+    grid-template-columns: 1fr;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+`;
+
 function RentNow(props: RentNowProps) {
   // const [cars, setCars] = useState([]);
   const { cars } = props;
+  const { theme }: any = useTheme();
 
-  // useEffect(() => {
-  //   const fetchCars = async () => {
-  //     let docs = [];
-  //     await getData("rentals").then((data: any) => {
-  //       console.log(data);
-  //       data.forEach((doc: any) => {
-  //         docs.push(doc);
-  //       });
-  //       setCars(data);
-  //     });
-  //   };
-  //   fetchCars();
-  // }, []);
   return (
     <>
-      <section className="models-section">
+      <Wrapper theme={theme}>
         <HeroPages subRoute={false} name="Cars" />
-        <div className="container">
-          <div className="models-div">
+        <Container>
+          <Models>
             {cars !== null ? (
               <>
                 {cars.map((car: any) => {
@@ -43,9 +61,9 @@ function RentNow(props: RentNowProps) {
             ) : (
               <></>
             )}
-          </div>
-        </div>
-        <div className="book-banner">
+          </Models>
+        </Container>
+        {/* <div className="book-banner">
           <div className="book-banner__overlay"></div>
           <div className="container">
             <div className="text-content">
@@ -56,8 +74,8 @@ function RentNow(props: RentNowProps) {
               </span>
             </div>
           </div>
-        </div>
-      </section>
+        </div> */}
+      </Wrapper>
     </>
   );
 }

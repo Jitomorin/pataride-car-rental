@@ -1,17 +1,167 @@
 import Link from "next/link";
-import Logo from "/images/logo/Pata Ride Text.png";
 import { useState } from "react";
 import NextImage from "next/image";
 import styled from "styled-components";
 import ColorSwitcher from "./ColorSwitcher";
 import { useAuthContext } from "@/contexts/AuthContext";
-import Hamburger from "./Hamburger";
 import { useTheme } from "./Theme";
 import { logout } from "@/utils/firebase/authentication";
+import { media } from "@/utils/media";
 
 const ColorSwitcherContainer = styled.div`
   width: 4rem;
   margin: 0 1rem;
+`;
+const MobileNavbarDiv = styled.div<{ nav: boolean; theme: any }>`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  background-color: ${(props) => (props.theme === "light" ? "#fff" : "#000")};
+  z-index: 999999;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+  ${(props) => (props.nav ? "left: 0;" : "")}
+`;
+const NavbarDiv = styled.div`
+  max-width: 133rem;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2.7rem 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  margin: 0 auto;
+  ${media("<=desktop")} {
+    justify-content: space-between;
+  }
+  ${media("<=tablet")} {
+    padding 0 3rem;
+  }
+`;
+const CloseNavDiv = styled.div`
+  font-size: 3rem;
+  position: absolute;
+  top: 3.5rem;
+  right: 3.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  :hover {
+    color: #3b3b3b;
+  }
+`;
+const MobileNavLinks = styled.div<{ theme: any }>`
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  font-size: 2.3rem;
+  gap: 3rem;
+  text-align: center;
+  li a {
+    text-decoration: none;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    font-weight: 500;
+    transition: all 0.3s;
+    :hover {
+      color: #313131;
+    }
+  }
+`;
+const NavLinks = styled.div<{ theme: any }>`
+  display: flex;
+  list-style: none;
+  gap: 2.7rem;
+  a {
+    font-size: 2rem;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1rem;
+  }
+  a:hover {
+    color: #f8d521;
+  }
+  a:hover::after {
+    width: 100%;
+  }
+  a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #f8d521; /* Change the color as needed */
+    transition: width 0.3s ease; /* Add animation effect */
+  }
+  ${media("<=tablet")} {
+    display: none;
+  }
+`;
+const ImageContainer = styled.div`
+  width: 14.5rem;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const HamburgerContainer = styled.div`
+  font-size: 2.8rem;
+  display: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  ${media("<=tablet")} {
+    display: flex;
+  }
+`;
+const NavButtons = styled.div<{ theme: any }>`
+  display: flex;
+  gap: 2.7rem;
+  font-size: 2rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  align-items: center;
+  a {
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1rem;
+  }
+  a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #f8d521; /* Change the color as needed */
+    transition: width 0.3s ease; /* Add animation effect */
+  }
+  a:hover {
+    color: #f8d521;
+  }
+  a:hover::after {
+    width: 100%;
+  }
+  ${media("<=tablet")} {
+    display: none;
+  }
 `;
 
 function Navbar() {
@@ -27,8 +177,8 @@ function Navbar() {
     <>
       <nav>
         {/* mobile */}
-        <div className={`mobile-navbar ${nav ? "open-nav" : ""}`}>
-          <div onClick={openNav} className="mobile-navbar__close">
+        <MobileNavbarDiv theme={theme} nav={nav}>
+          <CloseNavDiv onClick={openNav}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -43,8 +193,8 @@ function Navbar() {
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
-          </div>
-          <ul className="mobile-navbar__links">
+          </CloseNavDiv>
+          <MobileNavLinks theme={theme}>
             <li>
               <Link onClick={openNav} href="/">
                 Home
@@ -70,13 +220,49 @@ function Navbar() {
                 Contact
               </Link>
             </li>
-          </ul>
-        </div>
+            {user != null ? (
+              <li>
+                <button
+                  onClick={async () => {
+                    await logout();
+                  }}
+                  className="navbar__buttons__sign-in"
+                >
+                  Log out
+                </button>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link onClick={openNav} href="/login">
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={openNav} href="/signup">
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
+
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "1rem",
+              }}
+            >
+              <ColorSwitcher />
+            </li>
+          </MobileNavLinks>
+        </MobileNavbarDiv>
 
         {/* desktop */}
 
-        <div className="navbar">
-          <div className="navbar__img">
+        <NavbarDiv>
+          <ImageContainer>
             <Link href="/" onClick={() => window.scrollTo(0, 0)}>
               <NextImage
                 src={"/images/logo/Pata Ride Text.png"}
@@ -85,36 +271,26 @@ function Navbar() {
                 height={40}
               />
             </Link>
-          </div>
-          <ul className="navbar__links">
+          </ImageContainer>
+          <NavLinks theme={theme}>
             <li>
-              <Link className="home-link" href="/">
-                Home
-              </Link>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <Link className="buyer-link" href="/rent-now">
-                Rent now
-              </Link>
+              <Link href="/rent-now">Rent now</Link>
             </li>
             <li>
-              <Link className="seller-link" href="/seller">
-                Become a host
-              </Link>
+              <Link href="/seller">Become a host</Link>
             </li>
             <li>
               {" "}
-              <Link className="about-link" href="/about">
-                About
-              </Link>
+              <Link href="/about">About</Link>
             </li>
             <li>
               {" "}
-              <Link className="contact-link" href="/contact">
-                Contact
-              </Link>
+              <Link href="/contact">Contact</Link>
             </li>
-          </ul>
+          </NavLinks>
 
           {user != null ? (
             <div className="navbar__buttons">
@@ -131,21 +307,17 @@ function Navbar() {
               </ColorSwitcherContainer>
             </div>
           ) : (
-            <div className="navbar__buttons">
-              <Link className="navbar__buttons__sign-in" href="/login">
-                Sign In
-              </Link>
-              <Link className="navbar__buttons__sign-in" href="/signup">
-                Register
-              </Link>
+            <NavButtons theme={theme}>
+              <Link href="/login">Sign In</Link>
+              <Link href="/signup">Register</Link>
               <ColorSwitcherContainer>
                 <ColorSwitcher />
               </ColorSwitcherContainer>
-            </div>
+            </NavButtons>
           )}
 
           {/* mobile */}
-          <div className="mobile-hamb" onClick={openNav}>
+          <HamburgerContainer onClick={openNav}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -161,8 +333,8 @@ function Navbar() {
               <rect x="3" y="9" width="20" height="1" rx="1" ry="1" />
               <rect x="3" y="15" width="16" height="1" rx="1" ry="1" />
             </svg>
-          </div>
-        </div>
+          </HamburgerContainer>
+        </NavbarDiv>
       </nav>
     </>
   );

@@ -7,40 +7,104 @@ import StickySocialMediaBar from "./StickySocialMediaBar";
 import Loading from "./Loading";
 import NextImage from "next/image";
 import { useTheme } from "./Theme";
+import styled from "styled-components";
+import Container from "./Container";
+import { media } from "@/utils/media";
+
+const Wrapper = styled.section<{ theme: any }>`
+  width: 100%;
+  height: 97vh;
+  background-color: ${(props) =>
+    props.theme === "light" ? "#f8f8f8" : "#17191a"};
+  position: relative;
+`;
+const HeroContent = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  ${media("<=tablet")} {
+    justify-content: center;
+  }
+`;
+const HeroText = styled.div<{ theme: any }>`
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  max-width: 50rem;
+  margin-top: 5rem;
+  h2 {
+    font-size: 2rem;
+    font-family: "Poppins", sans-serif;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    ${media("<=tablet")} {
+      text-align: center;
+      align-items: center;
+      align-self: center;
+    }
+  }
+  h4 {
+    font-size: 2.2rem;
+    font-family: "Oswald", sans-serif;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+  }
+  h1 {
+    font-size: 5.2rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    line-height: 1.2;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    
+    ${media("<=tablet")} {
+      text-align: center;
+      align-items: center;
+      font-size: 3.2rem;
+      align-self: center;
+    }
+   
+  }
+  h1 div {
+    border-bottom: 5px solid #f8d521;
+    margin-right: 4px;
+  }
+  h1 span {
+    color: rgb(20, 14, 13);
+  }
+  p {
+    font-size: 1.5rem;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.6;
+    color: #706f7b;
+    margin-bottom: 4rem;
+    ${media("<=tablet")} {
+      text-align: center;
+      align-items: center;
+      align-self: center;
+    }
+`;
+const HeroImage = styled.img`
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  width: 60%;
+  margin-top: 5rem;
+  ${media("<=tablet")} {
+    display: none;
+  }
+`;
 
 function Hero() {
-  const [goUp, setGoUp] = useState(false);
+  // const [goUp, setGoUp] = useState(false);
   const { theme }: any = useTheme();
 
-  // const scrollToTop = () => {
-  //   window.scrollTo({ top: (0, 0), behavior: "smooth" });
-  // };
-
-  // const bookBtn = () => {
-  //   const doc: any = document;
-  //   doc
-  //     ?.querySelector("#booking-section")
-  //     .scrollIntoView({ behavior: "smooth" });
-  // };
-
-  // useEffect(() => {
-  //   const onPageScroll = () => {
-  //     if (window.pageYOffset > 600) {
-  //       setGoUp(true);
-  //     } else {
-  //       setGoUp(false);
-  //     }
-  //   };
-  //   window.addEventListener("scroll", onPageScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", onPageScroll);
-  //   };
-  // }, []);
   return (
     <>
-      <section id="home" className="hero-section">
-        <div className="container">
+      <Wrapper theme={theme}>
+        <Container>
           {theme === "light" ? (
             <img
               className="bg-shape"
@@ -50,8 +114,8 @@ function Hero() {
           ) : (
             <></>
           )}
-          <div className="hero-content">
-            <div className="hero-content__text">
+          <HeroContent>
+            <HeroText theme={theme}>
               {/* <h4>Explore</h4> */}
               <h1>
                 <div>Pata Ride</div> Yako
@@ -76,20 +140,14 @@ function Hero() {
                 
               </div> */}
               <HeroButton name={"Browse cars"} link="/rent-now" />
-            </div>
+            </HeroText>
 
             {/* NextImage */}
-            <img
-              src={"/images/hero/main-car.png"}
-              alt="car-img"
-              className="hero-content__car-img"
-            />
-          </div>
+            <HeroImage src={"/images/hero/main-car.png"} alt="car-img" />
+          </HeroContent>
           {/* <Loading/> */}
-        </div>
-
-        {/* page up */}
-      </section>
+        </Container>
+      </Wrapper>
     </>
   );
 }

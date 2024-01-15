@@ -74,6 +74,7 @@ export default function InstructionsGrid() {
           {INSTRUCTIONS.map((singleFeature, idx) => (
             <BasicCard
               useImage={false}
+              istransparent={false}
               FaIcon={singleFeature.icon}
               key={singleFeature.title}
               {...singleFeature}

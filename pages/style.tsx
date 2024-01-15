@@ -22,7 +22,22 @@ export const ThemeLight = styled.div`
     font-family: "Poppins", sans-serif;
     position: relative;
   }
-
+  .not-found-wrapper {
+    background: rgb(251, 251, 253);
+    /* margin: 10rem 0; */
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .shared-container {
+    max-width: 130em;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
   .container {
     max-width: 133rem !important;
     margin: 0 auto !important;
@@ -33,6 +48,39 @@ export const ThemeLight = styled.div`
     margin: 0 auto !important;
     padding: 0 2.5rem !important;
     height: 50vh;
+  }
+  .not-found-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 5rem;
+    position: relative;
+    width: auto;
+    padding: 0 1rem;
+    margin: auto, auto;
+    margin-bottom: 3rem;
+    ::after {
+      content: "";
+      position: absolute;
+      top: 95%;
+      width: 20%;
+      aspect-ratio: 3 / 1;
+      left: 50%;
+      transform: translate(-50%, 0);
+      border-radius: 50%;
+      border: 6px solid #f8d521;
+      /* Use a conic gradient mask to hide and show the bits you want */
+      --spread: 140deg;
+      --start: 290deg;
+      mask: conic-gradient(
+        from var(--start),
+        white 0 var(--spread),
+        transparent var(--spread)
+      );
+    }
+  }
+  .not-found-description {
+    font-size: 3rem;
+    opacity: 0.8;
+    font-family: "Poppins", sans-serif;
   }
 
   /* Firefox */
@@ -283,7 +331,6 @@ export const ThemeLight = styled.div`
     display: none;
     cursor: pointer;
     transition: all 0.3s;
-    color: "red";
   }
   .mobile-hamb:hover {
     color: rgb(99, 95, 95);
@@ -425,6 +472,12 @@ export const ThemeLight = styled.div`
     margin-top: 1rem;
     margin-bottom: 2rem;
     display: flex;
+    @media (max-width: 425px) {
+      font-size: 4.2rem;
+    }
+    @media (max-width: 320px) {
+      font-size: 3.2rem;
+    }
   }
   .hero-content__text h1 div {
     border-bottom: 5px solid #f8d521;
@@ -2367,7 +2420,7 @@ export const ThemeLight = styled.div`
     background-color: #000;
   } /*# sourceMappingURL=styles.css.map */
   .signup_wrapper {
-    height: 120vh;
+    height: auto;
     /* width: 100vw; */
     background-image: url("/images/signup/authentication_wallpaper.jpg");
     background-size: cover;
@@ -2455,17 +2508,25 @@ export const ThemeLight = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 50rem 0;
+    @media (max-width: 768px) {
+      padding: 80rem 0;
+    }
   }
   .signup_container {
     background: rgba(255, 255, 255, 0.7);
     border-radius: 15px;
     width: 40.486%;
+    min-width: 320px;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px 47px;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
   .signup_container img {
     width: 185px;
@@ -2512,6 +2573,14 @@ export const ThemeLight = styled.div`
     width: 100%;
     justify-content: space-evenly;
     margin-top: 20px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      div {
+        margin-bottom: 1rem;
+        margin-left: 5rem;
+        margin-right: 5rem;
+      }
+    }
     div {
       background-color: white;
       border-radius: 10px;
@@ -2630,6 +2699,23 @@ export const ThemeDark = styled.div`
     font-family: "Poppins", sans-serif;
     position: relative;
   }
+  .not-found-wrapper {
+    background-color: #000;
+    /* margin: 10rem 0; */
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: "white";
+  }
+  .shared-container {
+    max-width: 130em;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
 
   .container {
     max-width: 133rem !important;
@@ -2641,6 +2727,41 @@ export const ThemeDark = styled.div`
     margin: 0 auto !important;
     padding: 0 2.5rem !important;
     height: 50vh;
+  }
+  .not-found-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 5rem;
+    position: relative;
+    width: auto;
+    padding: 0 1rem;
+    margin: auto, auto;
+    margin-bottom: 3rem;
+    color: "white";
+    ::after {
+      content: "";
+      position: absolute;
+      top: 95%;
+      width: 20%;
+      aspect-ratio: 3 / 1;
+      left: 50%;
+      transform: translate(-50%, 0);
+      border-radius: 50%;
+      border: 6px solid #f8d521;
+      /* Use a conic gradient mask to hide and show the bits you want */
+      --spread: 140deg;
+      --start: 290deg;
+      mask: conic-gradient(
+        from var(--start),
+        white 0 var(--spread),
+        transparent var(--spread)
+      );
+    }
+  }
+  .not-found-description {
+    font-size: 3rem;
+    opacity: 0.8;
+    color: "white";
+    font-family: "Poppins", sans-serif;
   }
 
   /* Firefox */
@@ -2993,6 +3114,8 @@ export const ThemeDark = styled.div`
     margin-top: 1rem;
     margin-bottom: 2rem;
     display: flex;
+    @media (max-width: 425px) {
+  font-size: 4.2rem;
   }
   .hero-content__text h1 div {
     border-bottom: 5px solid #f8d521;
@@ -5106,6 +5229,10 @@ export const ThemeDark = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 50rem 0;
+    @media (max-width: 768px) {
+      padding: 80rem 0;
+    }
   }
   .signup_container {
     background: rgba(255, 255, 255, 0.7);
@@ -5117,6 +5244,9 @@ export const ThemeDark = styled.div`
     justify-content: center;
     align-items: center;
     padding: 40px 47px;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
   .signup_container img {
     width: 185px;
@@ -5163,6 +5293,14 @@ export const ThemeDark = styled.div`
     width: 100%;
     justify-content: space-evenly;
     margin-top: 20px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      div {
+        margin-bottom: 1rem;
+        margin-left: 5rem;
+        margin-right: 5rem;
+      }
+    }
     div {
       background-color: white;
       border-radius: 10px;
@@ -5237,7 +5375,7 @@ export const ThemeDark = styled.div`
     background-color: #17191a;
     padding: 10rem 0;
   }
-  .social-bar {
+   .social-bar {
     position: fixed;
     bottom: 0;
     right: 0;

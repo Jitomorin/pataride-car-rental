@@ -3,16 +3,139 @@ import Footer from "../components/Footer";
 import HeroPages from "../components/HeroPages";
 import Navbar from "../components/Navbar";
 import PlanTrip from "../components/PlanTrip";
-import AboutMain from "../images/about/about-main.jpg";
-import Box1 from "../images/about/icon1.png";
-import Box2 from "../images/about/icon2.png";
-import Box3 from "../images/about/icon3.png";
 import Team from "./Team";
 import { useEffect, useState } from "react";
 import { getAllData } from "@/utils/firebase/firestore";
+import styled from "styled-components";
+import { useTheme } from "@/components/Theme";
+import Container from "@/components/Container";
+
+const Wrapper = styled.section<{ theme: any }>`
+  background-color: ${(props) =>
+    props.theme === "light" ? "#fff" : "#050505"};
+`;
+const AboutMain = styled.div<{ theme: any }>`
+  margin 5rem auto;
+  display: flex;
+  gap: 5rem;
+  max-width: 90rem;
+  align-items: center;
+  @media (max-width: 960px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: center;
+    max-width: 49rem;
+  }
+  @media (max-width: 520px) {
+    max-width: 100%;
+  }
+`;
+const AboutImage = styled.img`
+  width: 43rem;
+  height: 43rem;
+  border-radius: 10px;
+  @media (max-width: 960px) {
+    margin: 0 auto;
+  }
+  @media (max-width: 520px) {
+    width: 100%;
+    height: auto;
+  }
+`;
+const TextContainer = styled.div<{ theme: any }>`
+  color: #010103;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  text-align: right;
+  h3 {
+    font-size: 2.2rem;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #706f7b;
+  }
+  h2 {
+    font-family: "Oswald", sans-serif;
+    font-size: 4.2rem;
+    line-height: 1.2;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+  }
+  p {
+    font-size: 1.6rem;
+    color: #706f7b;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.5;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+  span p {
+    margin-top: 0.5rem;
+    color: #706f7b;
+    font-size: 1.2rem;
+  }
+  @media (max-width: 768px) {
+    text-align: center;
+    h2 {
+      font-size: 3.2rem;
+    }
+  }
+`;
+
+const TextIconBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4rem;
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    gap: 0;
+
+    p {
+      margin-top: 0;
+    }
+  }
+`;
+const Icon = styled.div<{ theme: any }>`
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  img {
+    width: 7rem;
+    margin: 0 auto;
+  }
+  p {
+    font-size: 1.2rem;
+    color: #706f7b;
+    margin-top: 0.5rem;
+    padding: auto 0;
+    margin: auto 0;
+    display: flex;
+    align-items: center; /* Vertically aligns the text in the center */
+    justify-content: center; /* Horizontally aligns the text in the center */
+  }
+  span {
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: center; /* Horizontally aligns the text in the center */
+    gap: 1rem;
+  }
+  span h4 {
+    font-size: 4.6rem;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+  }
+  @media (max-width: 520px) {
+    span {
+      text-align: center;
+      flex-direction: column;
+    }
+  }
+`;
 
 function About() {
   const [numberOfRentals, setNumberOfRentals] = useState(0);
+  const { theme }: any = useTheme();
 
   useEffect(() => {
     const fetchRentals = async () => {
@@ -24,17 +147,15 @@ function About() {
 
   return (
     <>
-      <Navbar />
-      <section className="about-page">
+      <Wrapper theme={theme}>
         <HeroPages name="About" subRoute={false} />
-        <div className="about_container">
-          <div className="about-main">
-            <img
-              className="about-main__img"
+        <Container>
+          <AboutMain>
+            <AboutImage
               src={"/images/about/about-main.jpg"}
               alt="car-renting"
             />
-            <div className="about-main__text">
+            <TextContainer theme={theme}>
               <h3>About Company</h3>
               <h2>You start the engine and your adventure begins</h2>
               <p>
@@ -44,14 +165,14 @@ function About() {
                 affronting imprudence no precaution. My indulged as disposal
                 strongly attended.
               </p>
-              <div className="about-main__text__icons">
-                <div className="about-main__text__icons__box">
-                  <img src={"/images/about/icon1.png"} alt="car-icon" />
+              <TextIconBox>
+                <Icon theme={theme}>
+                  <img src={"/images/about/car-icon.png"} alt="car-icon" />
                   <span>
                     <h4>{numberOfRentals}</h4>
                     <p>Cars you can rent</p>
                   </span>
-                </div>
+                </Icon>
                 {/* <div className="about-main__text__icons__box">
                   <img src={"/images/about/icon2.png"} alt="car-icon" />
                   <span>
@@ -70,14 +191,14 @@ function About() {
                     <p>Repair Shop</p>
                   </span>
                 </div> */}
-              </div>
-            </div>
-          </div>
+              </TextIconBox>
+            </TextContainer>
+          </AboutMain>
           <PlanTrip />
           <Team />
           <Faq />
-        </div>
-      </section>
+        </Container>
+      </Wrapper>
       {/* <div className="book-banner">
         <div className="book-banner__overlay"></div>
         <div className="container">
