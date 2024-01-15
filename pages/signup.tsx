@@ -10,10 +10,135 @@ import { addData, addUser } from "@/utils/firebase/firestore";
 import { set } from "sanity";
 import { signOut } from "firebase/auth";
 import Snackbar from "@/components/Snackbar";
+import styled from "styled-components";
+import { useTheme } from "@/components/Theme";
+
+const Wrapper = styled.section<{ theme: any }>`
+  background-color: ${(props) =>
+    props.theme === "light" ? "#fff" : "#17191a"};
+`;
+const SignupContainer = styled.div<{ theme: any }>`
+  height: 120vh;
+  /* width: 100vw; */
+  background-image: url("/images/signup/authentication_wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50rem 0;
+  @media (max-width: 768px) {
+    padding: 80rem 0;
+  }
+`;
+const Box = styled.div<{ theme: any }>`
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  width: 40.486%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 47px;
+  img {
+    width: 185px;
+    height: 80px;
+  }
+  h1 {
+    font-family: "Oswald", sans-serif;
+    font-size: 38px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+const InputContainer = styled.div<{ theme: any }>`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  span {
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+  input {
+    background-color: ${(props) =>
+      props.theme === "light" ? "#fff" : "#272a2c"};
+    padding: 19px 30px 19px 30px;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    margin-bottom: 2.3rem;
+    color: #6e747c;
+  }
+`;
+const ButtonContainer = styled.div<{ theme: any }>`
+  margin-top: 70px;
+  width: 100%;
+`;
+const AuthLink = styled.div<{ theme: any }>`
+  margin-top: 20px;
+  text-align: center;
+  font-size: 15px;
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  p {
+    margin-right: 2px;
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+  a {
+    border-bottom: 1px solid #f8d521;
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+  a:hover {
+    scale: 1.03;
+  }
+`;
+const AltSigninContianer = styled.div<{ theme: any }>`
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    div {
+      margin-bottom: 1rem;
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+  }
+  div {
+    background-color: white;
+    border-radius: 10px;
+    border: 0.5px solid #d1cece;
+    /* height: auto; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+  }
+  button:hover {
+    scale: 1.05;
+  }
+`;
 
 function SignUp() {
   const { user }: any = useAuthContext();
   const router = useRouter();
+  const { theme }: any = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -93,10 +218,10 @@ function SignUp() {
   return (
     <>
       {/* <Navbar /> */}
-      <section className="models-section">
+      <Wrapper theme={theme}>
         {/* <HeroPages name="Vehicle Models" /> */}
-        <div className="signup_wrapper">
-          <div className="signup_container">
+        <SignupContainer>
+          <Box theme={theme}>
             <Link href="/">
               <img
                 src={"../images/logo/Pata Ride.png"}
@@ -105,7 +230,7 @@ function SignUp() {
               />
             </Link>
             <h1>Create a new account</h1>
-            <div className="input_container">
+            <InputContainer theme={theme}>
               <div style={{ display: "flex" }}>
                 <span>Email</span>
                 {
@@ -122,8 +247,8 @@ function SignUp() {
                 }}
                 placeholder="Enter your email"
               />
-            </div>
-            <div className="input_container">
+            </InputContainer>
+            <InputContainer theme={theme}>
               <div style={{ display: "flex" }}>
                 <span>Full Name</span>
                 <span style={{ marginLeft: "1px", color: "red" }}>
@@ -138,8 +263,8 @@ function SignUp() {
                 }}
                 placeholder="Enter your full name"
               />
-            </div>
-            <div className="input_container">
+            </InputContainer>
+            <InputContainer theme={theme}>
               <div style={{ display: "flex" }}>
                 <span>Password</span>
                 <span style={{ marginLeft: "1px", color: "red" }}>
@@ -165,8 +290,8 @@ function SignUp() {
                   and 1 number
                 </span>
               )}
-            </div>
-            <div className="input_container">
+            </InputContainer>
+            <InputContainer theme={theme}>
               <div style={{ display: "flex" }}>
                 <span>Confirm password</span>
                 <span style={{ marginLeft: "1px", color: "red" }}>
@@ -182,21 +307,21 @@ function SignUp() {
                 placeholder="Confirm your password"
                 type="password"
               />
-            </div>
-            <div className="button_container">
+            </InputContainer>
+            <ButtonContainer theme={theme}>
               <AuthButton
                 onClick={() => {
                   createUser(email, password, fullName);
                 }}
                 text={loading ? "Loading..." : "Continue"}
               />
-            </div>
-            <div className="auth_link">
+            </ButtonContainer>
+            <AuthLink theme={theme}>
               <p>Already have an account?</p>
               <Link href="/login">Log in</Link>
-            </div>
-          </div>
-        </div>
+            </AuthLink>
+          </Box>
+        </SignupContainer>
         <Snackbar
           message={snackbarMessage}
           isVisible={snackbarOpen}
@@ -204,7 +329,7 @@ function SignUp() {
             setSnackbarOpen(false);
           }}
         />
-      </section>
+      </Wrapper>
     </>
   );
 }

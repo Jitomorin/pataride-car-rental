@@ -159,6 +159,30 @@ const NavButtons = styled.div<{ theme: any }>`
   a:hover::after {
     width: 100%;
   }
+  div {
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1rem;
+  }
+  div::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #f8d521; /* Change the color as needed */
+    transition: width 0.3s ease; /* Add animation effect */
+  }
+  div:hover {
+    color: #f8d521;
+  }
+  div:hover::after {
+    width: 100%;
+  }
   ${media("<=tablet")} {
     display: none;
   }
@@ -293,19 +317,18 @@ function Navbar() {
           </NavLinks>
 
           {user != null ? (
-            <div className="navbar__buttons">
-              <button
+            <NavButtons theme={theme}>
+              <div
                 onClick={async () => {
                   await logout();
                 }}
-                className="navbar__buttons__sign-in"
               >
                 Log out
-              </button>
+              </div>
               <ColorSwitcherContainer>
                 <ColorSwitcher />
               </ColorSwitcherContainer>
-            </div>
+            </NavButtons>
           ) : (
             <NavButtons theme={theme}>
               <Link href="/login">Sign In</Link>

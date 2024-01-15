@@ -96,6 +96,15 @@ const HeroImage = styled.img`
     display: none;
   }
 `;
+const Shape = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  @media (max-width: 800px) {
+    display: none;
+  }
+`;
 
 function Hero() {
   // const [goUp, setGoUp] = useState(false);
@@ -106,11 +115,7 @@ function Hero() {
       <Wrapper theme={theme}>
         <Container>
           {theme === "light" ? (
-            <img
-              className="bg-shape"
-              src={"/images/hero/hero-bg.png"}
-              alt="bg-shape"
-            />
+            <Shape src={"/images/hero/hero-bg.png"} alt="bg-shape" />
           ) : (
             <></>
           )}

@@ -12,9 +12,134 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 import { login } from "@/utils/firebase/authentication";
 import Snackbar from "@/components/Snackbar";
+import { useTheme } from "@/components/Theme";
+import styled from "styled-components";
+
+const Wrapper = styled.section<{ theme: any }>`
+  background-color: ${(props) =>
+    props.theme === "light" ? "#fff" : "#17191a"};
+`;
+const SignupContainer = styled.div<{ theme: any }>`
+  height: 120vh;
+  /* width: 100vw; */
+  background-image: url("/images/signup/authentication_wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50rem 0;
+  @media (max-width: 768px) {
+    padding: 80rem 0;
+  }
+`;
+const Box = styled.div<{ theme: any }>`
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  width: 40.486%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 47px;
+  img {
+    width: 185px;
+    height: 80px;
+  }
+  h1 {
+    font-family: "Oswald", sans-serif;
+    font-size: 38px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+const InputContainer = styled.div<{ theme: any }>`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  span {
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+  input {
+    background-color: ${(props) =>
+      props.theme === "light" ? "#fff" : "#272a2c"};
+    padding: 19px 30px 19px 30px;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    margin-bottom: 2.3rem;
+    color: #6e747c;
+  }
+`;
+const ButtonContainer = styled.div<{ theme: any }>`
+  margin-top: 70px;
+  width: 100%;
+`;
+const AuthLink = styled.div<{ theme: any }>`
+  margin-top: 20px;
+  text-align: center;
+  font-size: 15px;
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  p {
+    margin-right: 2px;
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+  a {
+    border-bottom: 1px solid #f8d521;
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+  a:hover {
+    scale: 1.03;
+  }
+`;
+const AltSigninContianer = styled.div<{ theme: any }>`
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    div {
+      margin-bottom: 1rem;
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+  }
+  div {
+    background-color: white;
+    border-radius: 10px;
+    border: 0.5px solid #d1cece;
+    /* height: auto; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+  }
+  button:hover {
+    scale: 1.05;
+  }
+`;
 
 function LogIn() {
   const { user }: any = useAuthContext();
+  const { theme }: any = useTheme();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,10 +192,10 @@ function LogIn() {
   return (
     <>
       {/* <Navbar /> */}
-      <section className="models-section">
+      <Wrapper theme={theme}>
         {/* <HeroPages name="Vehicle Models" /> */}
-        <div className="signup_wrapper">
-          <div className="signup_container">
+        <SignupContainer>
+          <Box theme={theme}>
             <Link href="/">
               <img
                 src={"../images/logo/Pata Ride.png"}
@@ -80,7 +205,7 @@ function LogIn() {
             </Link>
 
             <h1>Welcome back!</h1>
-            <div className="input_container">
+            <InputContainer theme={theme}>
               <div style={{ display: "flex" }}>
                 <span>Email</span>
                 {
@@ -96,9 +221,9 @@ function LogIn() {
                 }}
                 placeholder="Enter your email"
               />
-            </div>
+            </InputContainer>
 
-            <div className="input_container">
+            <InputContainer theme={theme}>
               <div style={{ display: "flex" }}>
                 <span>Password</span>
                 <span style={{ marginLeft: "1px", color: "red" }}>
@@ -113,22 +238,22 @@ function LogIn() {
                 placeholder="Enter your full password"
                 type="password"
               />
-            </div>
+            </InputContainer>
 
-            <div className="button_container">
+            <ButtonContainer theme={theme}>
               <AuthButton
                 onClick={() => {
                   loginUser();
                 }}
                 text={loading ? "Loading..." : "Continue"}
               />
-            </div>
-            <div className="auth_link">
+            </ButtonContainer>
+            <AuthLink theme={theme}>
               <p>Don't have an account?</p>
               <Link href="/signup">Sign up</Link>
-            </div>
+            </AuthLink>
             <OrDivider />
-            <div className="alt_signin_container">
+            <AltSigninContianer theme={theme}>
               <div>
                 <button
                   onClick={() => {
@@ -175,9 +300,9 @@ function LogIn() {
                   <img src={"../images/logo/apple_icon.png"} alt="apple-icon" />
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
+            </AltSigninContianer>
+          </Box>
+        </SignupContainer>
         <Snackbar
           message={snackbarMessage}
           isVisible={snackbarOpen}
@@ -185,7 +310,7 @@ function LogIn() {
             setSnackbarOpen(false);
           }}
         />
-      </section>
+      </Wrapper>
     </>
   );
 }

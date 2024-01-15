@@ -6,24 +6,26 @@ import Input from "components/Input";
 import { media } from "utils/media";
 import MailSentState from "../../components/MailSentState";
 import Map from "components/Map";
+import { useTheme } from "@/components/Theme";
 
 export default function MapSection() {
+  const { theme }: any = useTheme();
   return (
-    <div className="map_wrapper">
+    <Wrapper theme={theme}>
       <h3>Come see us!</h3>
       <Map />
-    </div>
+    </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ theme: any }>`
   flex: 2;
   margin: 0 10rem;
 
   h3 {
     font-size: 3.5rem;
     /* font-weight: bold; */
-    color: white;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
     margin-top: 3rem;
     margin-bottom: 3rem;
     font-family: "Oswald", sans-serif;
