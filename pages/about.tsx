@@ -170,7 +170,7 @@ function About() {
                   <img src={"/images/about/car-icon.png"} alt="car-icon" />
                   <span>
                     <h4>{numberOfRentals}</h4>
-                    <p>Cars you can rent</p>
+                    <p>Cars you can hire</p>
                   </span>
                 </Icon>
                 {/* <div className="about-main__text__icons__box">
