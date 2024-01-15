@@ -117,7 +117,7 @@ function PlanTrip() {
         <Container>
           <PlanContainer>
             <TitleContainer theme={theme}>
-              <h3>Rent your car now</h3>
+              <h3>Hire your car now</h3>
               <h2>Quick & easy</h2>
             </TitleContainer>
 
