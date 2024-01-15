@@ -89,6 +89,25 @@ const Column = styled.div`
     border-right: 2px solid #706f7b;
   }
 `;
+const AnimatedButton = styled.a<{ theme: any }>`
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  background-color: #868686;
+  padding: 1rem 1rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1.4rem;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 0 #efe9e9;
+  &:hover {
+    background-color: #222222;
+  }
+`;
 
 function CarBox({ data, carID, theme }: any) {
   const [carLoad, setCarLoad] = useState(true);
@@ -148,9 +167,7 @@ function CarBox({ data, carID, theme }: any) {
               </Column>
             </Table>
             {/* btn cta */}
-            <Link className="cta-btn" href="#booking-section">
-              Reserve Now
-            </Link>
+            <AnimatedButton href="/rent-now">Reserve Now</AnimatedButton>
           </Description>
         </Wrapper>
       ))}

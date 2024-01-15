@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/rent-now": "pages/rent-now.js",
-  "/rent-now/[rental]": "pages/rent-now/[rental].js"
+  "/rent-now": "pages/rent-now.js"
 }
