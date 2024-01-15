@@ -69,28 +69,27 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider>
-      <ThemeContainer>
-        <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin=""
-          />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap"
-            rel="stylesheet"
-          />
-          <link rel="icon" type="image/png" href="/favicon.png" />
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-6WCSKJXF5T"
-          ></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap"
+          rel="stylesheet"
+        />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-6WCSKJXF5T"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag() {
                 dataLayer.push(arguments);
@@ -98,50 +97,49 @@ function MyApp({ Component, pageProps }: AppProps) {
               gtag('js', new Date());
               gtag('config', 'G-6WCSKJXF5T');
             `,
-            }}
-          />
-          {/* <link rel="alternate" type="application/rss+xml" href={EnvVars.URL + 'rss'} title="RSS 2.0" /> */}
-          {/* <script
+          }}
+        />
+        {/* <link rel="alternate" type="application/rss+xml" href={EnvVars.URL + 'rss'} title="RSS 2.0" /> */}
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
           ga('create', 'UA-117119829-1', 'auto');
           ga('send', 'pageview');`,
           }}
         /> */}
-          {/* <script async src="https://www.google-analytics.com/analytics.js"></script> */}
-        </Head>
-        <AuthContextProvider>
-          <>
-            <ColorModeScript />
-            <GlobalStyle />
-            {loading ? (
-              // <Spinner />
-              <Loading />
-            ) : (
-              <Providers>
-                <Modals />
-                {routerPathname === "/login" ||
-                routerPathname === "/signup" ? null : (
-                  <Navbar />
-                )}
-                {/* <Navbar /> */}
-                {routerPathname === "/login" ||
-                routerPathname === "/signup" ? null : (
-                  <StickySocialMediaBar />
-                )}
-                {/* <StickySocialMediaBar /> */}
-                <Component {...pageProps} />
-                {/* <CompanyFooter /> */}
-                {routerPathname === "/login" ||
-                routerPathname === "/signup" ? null : (
-                  <Footer />
-                )}
-                {/* <Footer /> */}
-              </Providers>
-            )}
-          </>
-        </AuthContextProvider>
-      </ThemeContainer>
+        {/* <script async src="https://www.google-analytics.com/analytics.js"></script> */}
+      </Head>
+      <AuthContextProvider>
+        <>
+          <ColorModeScript />
+          <GlobalStyle />
+          {loading ? (
+            // <Spinner />
+            <Loading />
+          ) : (
+            <Providers>
+              <Modals />
+              {routerPathname === "/login" ||
+              routerPathname === "/signup" ? null : (
+                <Navbar />
+              )}
+              {/* <Navbar /> */}
+              {routerPathname === "/login" ||
+              routerPathname === "/signup" ? null : (
+                <StickySocialMediaBar />
+              )}
+              {/* <StickySocialMediaBar /> */}
+              <Component {...pageProps} />
+              {/* <CompanyFooter /> */}
+              {routerPathname === "/login" ||
+              routerPathname === "/signup" ? null : (
+                <Footer />
+              )}
+              {/* <Footer /> */}
+            </Providers>
+          )}
+        </>
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }
