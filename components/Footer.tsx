@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { media } from "@/utils/media";
 import NextImage from "next/image";
 import { FacebookIcon, LinkedinIcon } from "react-share";
+import { useNewsletterModalContext } from "@/contexts/newsletter-modal.context";
 
 const FooterWrapper = styled.div<{ theme: any }>`
   background-color: ${(props) =>
@@ -176,15 +177,16 @@ const SubmitButton = styled.button`
   width: fit-content;
   cursor: pointer;
   width: 100%;
+  transition: ease-in-out 0.3s;
   :hover {
-    /* box-shadow: 0 10px 15px 0 rgba(255, 83, 48, 0.4); */
-    background-color: #fff;
-    color: #000;
+    scale: 1.03;
+    transition: ease-in-out 0.3s;
   }
 `;
 
 function Footer() {
   const { theme }: any = useTheme();
+  const { setIsModalOpened } = useNewsletterModalContext();
   return (
     <>
       <FooterWrapper theme={theme}>
@@ -192,7 +194,7 @@ function Footer() {
           <Content theme={theme}>
             <FirstList theme={theme}>
               <Title>
-                <span>Pata-ride</span> Rentals
+                <span>Pata-ride</span> Hires
               </Title>
               <li>
                 We offers a big range of vehicles for all your driving needs. We
@@ -238,7 +240,7 @@ function Footer() {
                 <Link href="#home">Home</Link>
               </li>
               <li>
-                <Link href="#home">Rent now</Link>
+                <Link href="#home">Hire now</Link>
               </li>
               <li>
                 <Link href="#home">Become a host</Link>
@@ -263,20 +265,12 @@ function Footer() {
             <SocialMediaList theme={theme}>
               <Title>Find us on:</Title>
               <li>
-                <Link
-                  target="_blank"
-                  href="https://www.linkedin.com/company/core-maestro-management/"
-                  passHref
-                >
+                <Link target="_blank" href="#" passHref>
                   <LinkedinIcon size={40} round={true} />
                 </Link>
               </li>
               <li>
-                <Link
-                  target="_blank"
-                  href="https://www.instagram.com/core.maestro.management/"
-                  passHref
-                >
+                <Link target="_blank" href="#" passHref>
                   {/* <TwitterIcon size={50} round={true} /> */}
                   <NextImage
                     src="/instagram_logo.webp"
@@ -287,20 +281,12 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  target="_blank"
-                  href="https://www.facebook.com/coremaestromanagement/"
-                  passHref
-                >
+                <Link target="_blank" href="#" passHref>
                   <FacebookIcon size={40} round={true} />
                 </Link>
               </li>
               <li>
-                <Link
-                  target="_blank"
-                  href="https://wa.me/message/ODRQQDIW57LEN1"
-                  passHref
-                >
+                <Link target="_blank" href="#" passHref>
                   {/* <TwitterIcon size={50} round={true} /> */}
                   <NextImage
                     src="/whatsapp_logo.webp"
@@ -317,11 +303,15 @@ function Footer() {
               <li>
                 <p>Subscribe your Email address for latest news & updates.</p>
               </li>
+
               <li>
-                <input type="email" placeholder="Enter Email Address"></input>
-              </li>
-              <li>
-                <SubmitButton>Submit</SubmitButton>
+                <SubmitButton
+                  onClick={() => {
+                    setIsModalOpened(true);
+                  }}
+                >
+                  Submit
+                </SubmitButton>
               </li>
             </SecondList>
           </Content>

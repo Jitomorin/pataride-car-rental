@@ -1,15 +1,24 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { useTheme } from "./Theme";
 
 export default function MailSentState() {
+  const { theme }: any = useTheme();
   return (
-    <Wrapper>
-      <svg id="b76bd6b3-ad77-41ff-b778-1d1d054fe577" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 511.67482">
+    <Wrapper theme={theme}>
+      {/* <svg
+        id="b76bd6b3-ad77-41ff-b778-1d1d054fe577"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 570 511.67482"
+      >
         <path
           d="M879.99927,389.83741a.99678.99678,0,0,1-.5708-.1792L602.86963,197.05469a5.01548,5.01548,0,0,0-5.72852.00977L322.57434,389.65626a1.00019,1.00019,0,0,1-1.14868-1.6377l274.567-192.5918a7.02216,7.02216,0,0,1,8.02-.01318l276.55883,192.603a1.00019,1.00019,0,0,1-.57226,1.8208Z"
           transform="translate(-315 -194.16259)"
           fill="#3f3d56"
         />
-        <polygon points="23.264 202.502 285.276 8.319 549.276 216.319 298.776 364.819 162.776 333.819 23.264 202.502" fill="#e6e6e6" />
+        <polygon
+          points="23.264 202.502 285.276 8.319 549.276 216.319 298.776 364.819 162.776 333.819 23.264 202.502"
+          fill="#e6e6e6"
+        />
         <path
           d="M489.25553,650.70367H359.81522a6.04737,6.04737,0,1,1,0-12.09473H489.25553a6.04737,6.04737,0,1,1,0,12.09473Z"
           transform="translate(-315 -194.16259)"
@@ -40,15 +49,17 @@ export default function MailSentState() {
           transform="translate(-315 -194.16259)"
           fill="#1673ff"
         />
-      </svg>
-      <p>Mail successfully sent!</p>
+      </svg> */}
+      <p>You have been added to the list</p>
+      <span>Press Esc to close</span>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ theme: any }>`
   flex: 1;
-
+  background-color: ${(props) => (props.theme === "light" ? "#fff" : "#000")};
+  color: ${(props) => (props.theme === "light" ? "#000" : "#fff")};
   & > *:not(:first-child) {
     margin-top: 5rem;
   }
@@ -60,6 +71,10 @@ const Wrapper = styled.div`
 
   p {
     font-size: 2.5rem;
+    text-align: center;
+  }
+  span {
+    font-size: 2rem;
     text-align: center;
   }
 `;

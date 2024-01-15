@@ -27,20 +27,12 @@ export default function StickySocialMediaBar() {
     <Wrapper>
       <ShareBar>
         <SocialmediaLink>
-          <Link
-            target="_blank"
-            href="https://www.linkedin.com/company/core-maestro-management/"
-            passHref
-          >
+          <Link target="_blank" href="#" passHref>
             <LinkedinIcon size={isMobile ? 50 : 40} round={true} />
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
-          <Link
-            target="_blank"
-            href="https://www.instagram.com/core.maestro.management/"
-            passHref
-          >
+          <Link target="_blank" href="#" passHref>
             {/* <TwitterIcon size={50} round={true} /> */}
             <NextImage
               src="/instagram_logo.webp"
@@ -51,20 +43,12 @@ export default function StickySocialMediaBar() {
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
-          <Link
-            target="_blank"
-            href="https://www.facebook.com/coremaestromanagement/"
-            passHref
-          >
+          <Link target="_blank" href="#" passHref>
             <FacebookIcon size={isMobile ? 50 : 40} round={true} />
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
-          <Link
-            target="_blank"
-            href="https://wa.me/message/ODRQQDIW57LEN1"
-            passHref
-          >
+          <Link target="_blank" href="#" passHref>
             {/* <TwitterIcon size={50} round={true} /> */}
             <NextImage
               src="/whatsapp_logo.webp"

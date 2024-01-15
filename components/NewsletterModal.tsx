@@ -12,13 +12,20 @@ import Input from "./Input";
 import MailSentState from "./MailSentState";
 import Overlay from "./Overlay";
 import styled from "styled-components";
+import HeroButton from "./HeroButton";
+import Snackbar from "./Snackbar";
+import { set } from "sanity";
+import { useTheme } from "./Theme";
 
 export interface NewsletterModalProps {
   onClose: () => void;
 }
 
 export default function NewsletterModal({ onClose }: NewsletterModalProps) {
+  const { theme }: any = useTheme();
   const [email, setEmail] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("Default Message");
 
   useEscClose({ onClose });
 
@@ -30,6 +37,7 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
     console.log({ email });
     if (email) {
       enrollNewsletter({ EMAIL: email });
+      setSnackbarMessage("Thanks for subscribing!");
     }
   }
 
@@ -42,6 +50,7 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
           <Overlay>
             <Container>
               <Card
+                theme={theme}
                 onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
                   onSubmit(event, subscribe)
                 }
@@ -52,24 +61,27 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
                 {hasSignedUp && <MailSentState />}
                 {!hasSignedUp && (
                   <>
-                    <Title>Are you ready to subscribe to our newsletter?</Title>
-                    <Row>
+                    <Title theme={theme}>Subscribe to our newsletter?</Title>
+                    <Column>
                       <CustomInput
+                        theme={theme}
                         value={email}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                           setEmail(e.target.value)
                         }
                         placeholder="Enter your email..."
+                        name="EMAIL"
                         required
                       />
-                      <CustomButton
+                      <AnimatedButton
+                        name="Subscribe"
                         as="button"
                         type="submit"
                         disabled={hasSignedUp}
                       >
                         Submit
-                      </CustomButton>
-                    </Row>
+                      </AnimatedButton>
+                    </Column>
                     {message && (
                       <ErrorMessage
                         dangerouslySetInnerHTML={{ __html: message as string }}
@@ -79,6 +91,13 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
                 )}
               </Card>
             </Container>
+            <Snackbar
+              message={snackbarMessage}
+              isVisible={snackbarOpen}
+              onClose={() => {
+                setSnackbarOpen(false);
+              }}
+            />
           </Overlay>
         );
       }}
@@ -86,13 +105,14 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
   );
 }
 
-const Card = styled.form`
+const Card = styled.form<{ theme: any }>`
   display: flex;
   position: relative;
   flex-direction: column;
   margin: auto;
   padding: 10rem 5rem;
-  background: rgb(251, 251, 253);
+  background: ${(props) =>
+    props.theme === "light" ? "rgb(251, 251, 253)" : "#17191a"};
   border-radius: 0.6rem;
   max-width: 70rem;
   overflow: hidden;
@@ -103,7 +123,7 @@ const Card = styled.form`
   }
 `;
 
-const CloseIconContainer = styled.div`
+const CloseIconContainer = styled.div<{ theme: any }>`
   position: absolute;
   right: 2rem;
   top: 2rem;
@@ -111,16 +131,18 @@ const CloseIconContainer = styled.div`
   svg {
     cursor: pointer;
     width: 2rem;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
   }
 `;
 
-const Title = styled.div`
+const Title = styled.div<{ theme: any }>`
   font-size: 3.2rem;
   font-weight: bold;
   line-height: 1.1;
   letter-spacing: -0.03em;
   text-align: center;
-  color: rgb(10, 18, 30);
+  color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+  font-family: "Oswald", sans-serif;
 
   ${media("<=tablet")} {
     font-size: 2.6rem;
@@ -134,8 +156,9 @@ const ErrorMessage = styled.p`
   text-align: center;
 `;
 
-const Row = styled.div`
+const Column = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -159,9 +182,28 @@ const CustomButton = styled(Button)`
     margin-top: 1rem;
   }
 `;
+const AnimatedButton = styled.div<{ theme: any }>`
+  margin-top: 2rem;
+  background-color: #f8d521;
+  padding: 1.8rem 3rem;
+  border-radius: 0.3rem;
+  transition: all 0.3s;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    scale: 1.07;
+  }
+`;
 
-const CustomInput = styled(Input)`
+const CustomInput = styled(Input)<{ theme: any }>`
   width: 60%;
+  outline: none;
+  border: none;
+  background-color: ${(props) =>
+    props.theme === "light" ? "#f2f2f2" : "#272a2c"};
+  color: ${(props) => (props.theme === "light" ? "" : "#fff")};
 
   ${media("<=tablet")} {
     width: 100%;

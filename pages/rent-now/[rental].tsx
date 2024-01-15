@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SharedPageProps } from "../_app";
 import styled from "styled-components";
 import { GetServerSideProps, GetStaticPathsResult, GetStaticProps } from "next";
@@ -11,7 +11,6 @@ import {
 import { readToken } from "@/sanity/env";
 import { useRouter } from "next/router";
 import service from "@/sanity/schemas/service";
-import ServicePage from "@/components/ServicePage";
 import Page from "@/components/Page";
 import { RentNowProps } from ".";
 import { getDocument } from "@/utils/firebase/firestore";
@@ -20,6 +19,9 @@ import HeroPages from "@/components/HeroPages";
 import Loading from "@/components/Loading";
 import HeroButton from "@/components/HeroButton";
 import Link from "next/link";
+import { useTheme } from "@/components/Theme";
+import Container from "@/components/Container";
+import Snackbar from "@/components/Snackbar";
 
 // interface pageProps extends SharedPageProps {
 //     service: Service;
@@ -32,24 +34,57 @@ interface Query {
   [key: string]: string;
 }
 
+const Wrapper = styled.section<{ theme: any }>`
+  background-color: ${(props) =>
+    props.theme === "light" ? "#fff" : "#17191a"};
+`;
+const BookButton = styled.div<{ theme: any }>`
+  background-color: #f8d521;
+  padding: 1.8rem 3rem;
+  border-radius: 0.3rem;
+  transition: all 0.3s;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    scale: 1.07;
+  }
+`;
+
 export default function carSlugRoute(props: CarProps) {
   const router = useRouter();
+  const { theme }: any = useTheme();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("Default Message");
   const { car }: any = props;
   if (router.isFallback) {
     return <Loading />;
   }
   return (
-    <section className="models-section">
+    <Wrapper theme={theme}>
       <HeroPages subRoute={true} name={`${car.name}`} />
-      <div className="container">
+      <Container>
         <div
-          style={{
-            width: "80%",
-            alignSelf: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+          style={
+            theme === "light"
+              ? {
+                  width: "80%",
+                  alignSelf: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  color: "#010103",
+                }
+              : {
+                  width: "80%",
+                  alignSelf: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  color: "#fff",
+                }
+          }
         >
           <div
             style={{
@@ -194,15 +229,22 @@ export default function carSlugRoute(props: CarProps) {
                   // marginBottom: "auto",
                 }}
               >
-                <div className="models-div__box__descr__name-price__btn">
-                  <Link href="#">Book Ride</Link>
-                </div>
+                <BookButton
+                  onClick={() => {
+                    setSnackbarMessage("Feature not available yet");
+                    setSnackbarOpen(true);
+                  }}
+                  theme={theme}
+                >
+                  {/* <Link href="">Book Ride</Link> */}
+                  Book Ride
+                </BookButton>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="book-banner">
+      </Container>
+      {/* <div className="book-banner">
         <div className="book-banner__overlay"></div>
         <div className="container">
           <div className="text-content">
@@ -213,9 +255,16 @@ export default function carSlugRoute(props: CarProps) {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <Footer /> */}
-    </section>
+      <Snackbar
+        message={snackbarMessage}
+        isVisible={snackbarOpen}
+        onClose={() => {
+          setSnackbarOpen(false);
+        }}
+      />
+    </Wrapper>
   );
 }
 

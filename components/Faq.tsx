@@ -161,7 +161,7 @@ function Instructions() {
                   onClick={() => openQ("q2")}
                   // className={`faq-box__question ${getClassQuestion("q2")}`}
                 >
-                  <p>2. How do I find the car rental deals?</p>
+                  <p>2. How do I find the car hires deals?</p>
                   <i className="fa-solid fa-angle-down"></i>
                 </Question>
                 <Answer

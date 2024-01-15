@@ -62,8 +62,9 @@ const PickBoxButton = styled.button<{ theme: any; active: boolean }>`
   cursor: pointer;
   padding: 1.5rem 2.5rem;
   background-color: ${(props) =>
-    props.theme === "light" ? "#e9e9e9" : "#414141"};
-  background-color: ${(props) => (props.active ? "" : "#F8D521")};
+    props.theme === "light"
+      ? (props) => (!props.active ? "#F8D521" : "#fff")
+      : (props) => (!props.active ? "#F8D521" : "#414141")};
   color: ${(props) => (props.active ? "" : "#fff")};
   transition: all 0.2s;
   text-align: left;

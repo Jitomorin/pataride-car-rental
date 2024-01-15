@@ -2,8 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/contact": "pages/contact.js",
-  "/login": "pages/login.js",
-  "/signup": "pages/signup.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/rent-now": "pages/rent-now.js",
+  "/rent-now/[rental]": "pages/rent-now/[rental].js"
 }

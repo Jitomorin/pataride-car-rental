@@ -226,7 +226,7 @@ function Navbar() {
             </li>
             <li>
               <Link onClick={openNav} href="/rent-now">
-                Rent now
+                Hire now
               </Link>
             </li>
             <li>
@@ -301,7 +301,7 @@ function Navbar() {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/rent-now">Rent now</Link>
+              <Link href="/rent-now">Hire now</Link>
             </li>
             <li>
               <Link href="/seller">Become a host</Link>

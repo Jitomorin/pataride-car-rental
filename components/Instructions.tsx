@@ -157,7 +157,7 @@ function Instructions() {
                   onClick={() => openQ("q2")}
                   // className={`faq-box__question ${getClassQuestion("q2")}`}
                 >
-                  <p>2. List your beast</p>
+                  <p>2. List your car</p>
                   <i className="fa-solid fa-angle-down"></i>
                 </Question>
                 <Answer

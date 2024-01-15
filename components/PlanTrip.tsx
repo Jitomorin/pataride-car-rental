@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useTheme } from "./Theme";
 import Container from "./Container";
 import { media } from "@/utils/media";
+import Link from "next/link";
 
 const Wrapper = styled.section<{ theme: any }>`
   background-color: #ffffff;
@@ -73,9 +74,16 @@ const Box = styled.div<{ theme: any }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   img {
     width: 24rem;
     height: auto;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+    &:hover {
+      scale: 1.02;
+      transition: ease-in-out 0.3s;
+    }
   }
   h3 {
     font-size: 2.5rem;
@@ -114,8 +122,11 @@ function PlanTrip() {
             </TitleContainer>
 
             <BoxContainer>
-              <Box>
-                <img src={"/images/plan/first-icon.png"} alt="icon_img" />
+              <Box theme={theme}>
+                <Link href="/rent-now">
+                  <img src={"/images/plan/first-icon.png"} alt="icon_img" />
+                </Link>
+                {/* <img src={"/images/plan/first-icon.png"} alt="icon_img" /> */}
                 <h3>For Executives</h3>
                 <p>
                   Choose your ride, fuel your dreams. You now have a chance to
@@ -124,8 +135,11 @@ function PlanTrip() {
                 </p>
               </Box>
 
-              <Box>
-                <img src={"/images/plan/second-icon.png"} alt="icon_img" />
+              <Box theme={theme}>
+                <Link href="/rent-now">
+                  <img src={"/images/plan/second-icon.png"} alt="icon_img" />
+                </Link>
+
                 <h3>For Tours</h3>
                 <p>
                   Hidden beyond the rugged African terrains is unexpected
@@ -135,8 +149,11 @@ function PlanTrip() {
                 </p>
               </Box>
 
-              <Box>
-                <img src={"/images/plan/third-icon.png"} alt="icon_img" />
+              <Box theme={theme}>
+                <Link href="/rent-now">
+                  <img src={"/images/plan/third-icon.png"} alt="icon_img" />
+                </Link>
+                {/* <img src={"/images/plan/third-icon.png"} alt="icon_img" /> */}
                 <h3>For Movers</h3>
                 <p>
                   Relocating? Worry no more. Find movers you can trust with your

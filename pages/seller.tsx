@@ -29,7 +29,7 @@ function Seller() {
           {user != null ? (
             <HeroButton name={"Enlist your car"} link="/register-car" />
           ) : (
-            <HeroButton name={"Become a seller"} link="/signup" />
+            <HeroButton name={"Become a host"} link="/signup" />
           )}
         </ButtonWrapper>
       </Wrapper>
