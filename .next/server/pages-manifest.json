@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/rent-now": "pages/rent-now.js"
+  "/terms-of-service": "pages/terms-of-service.js",
+  "/privacy-policy": "pages/privacy-policy.js",
+  "/copyright": "pages/copyright.js"
 }

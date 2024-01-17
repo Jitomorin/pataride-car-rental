@@ -2,13 +2,15 @@ import Date from "components/PostDate";
 import type { PrivacyPolicy } from "@/sanity/lib/queries";
 import styled from "styled-components";
 import { media } from "@/utils/media";
+import { useTheme } from "./Theme";
 
 export default function PrivacyPolicyHeader(
   props: Pick<PrivacyPolicy, "title" | "date" | "content">
 ) {
   const { title, date } = props;
+  const { theme }: any = useTheme();
   return (
-    <Wrapper>
+    <Wrapper theme={theme}>
       <h1 className="mb-12 font-[Oswald] text-center text-5xl font-bold leading-tight tracking-tighter md:text-6xl md:leading-none lg:text-7xl">
         {title}
       </h1>
@@ -35,8 +37,9 @@ export default function PrivacyPolicyHeader(
     </Wrapper>
   );
 }
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ theme: any }>`
   margin: 0 18rem;
+  color: ${(props) => (props.theme !== "light" ? "#fff" : "#010103")};
   ${media("<=largeDesktop")} {
     margin: 0 5rem;
   }

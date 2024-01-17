@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SharedPageProps } from "../_app";
 import styled from "styled-components";
 import { GetServerSideProps, GetStaticPathsResult, GetStaticProps } from "next";
-import { Service } from "@/sanity/lib/queries";
+import NextImage from "next/image";
 import {
   getAllServiceSlugs,
   getClient,
@@ -22,6 +22,7 @@ import Link from "next/link";
 import { useTheme } from "@/components/Theme";
 import Container from "@/components/Container";
 import Snackbar from "@/components/Snackbar";
+import Tooltip from "@/components/Tooltip";
 
 // interface pageProps extends SharedPageProps {
 //     service: Service;
@@ -47,14 +48,99 @@ const BookButton = styled.div<{ theme: any }>`
   color: white;
   font-weight: bold;
   cursor: pointer;
+  z-index: 1;
   &:hover {
     scale: 1.07;
+  }
+`;
+const ContainerRow = styled.div`
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+const Description = styled.div`
+  font-size: 1.5rem;
+  width: 50rem;
+  @media (max-width: 425px) {
+    max-width: 100%;
+  }
+`;
+const Details = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 50rem;
+  gap: 0.4rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+  @media (max-width: 425px) {
+    flex-direction: column;
+  }
+`;
+const Item = styled.div`
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0px;
+  width: auto;
+  text-align: right;
+  border-right: 1px solid #c6c6c6;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  h4 {
+    font-weight: bold;
+  }
+  @media (max-width: 425px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+    border-right: none;
+    border-left: 1px solid #c6c6c6;
+    p {
+      border-left: 1px solid #c6c6c6;
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+  }
+`;
+const ButtonContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: end;
+  margin-top: auto;
+  @media (max-width: 768px) {
+    align-items: start;
+    margin-top: 5rem;
+  }
+`;
+const LinkContainer = styled.div<{ show: any }>`
+  display: flex;
+  transform: translateY(${(props) => (props.show ? "0" : "100%")});
+  transition: transform 0.4s;
+  justify-content: start;
+  padding: 1.8rem 3rem;
+  z-index: 0;
+  a {
+    width: 100%;
+    transition: opacity 0.3s, transform 0.3s;
+    &:hover {
+      scale: 1.04;
+    }
+  }
+  @media (max-width: 768px) {
   }
 `;
 
 export default function carSlugRoute(props: CarProps) {
   const router = useRouter();
   const { theme }: any = useTheme();
+  const [showLinks, setShowLinks] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("Default Message");
   const { car }: any = props;
@@ -97,12 +183,7 @@ export default function carSlugRoute(props: CarProps) {
             <div className="car-model-card__img">
               <img src={car.image} alt="" />
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
+            <ContainerRow>
               <div className="car-model-card__text">
                 <h3
                   style={{
@@ -114,149 +195,70 @@ export default function carSlugRoute(props: CarProps) {
                 >
                   {car.name}
                 </h3>
-                <p
-                  style={{
-                    fontSize: "1.5rem",
-                    width: "50rem",
-                  }}
-                >
-                  {car.description}
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    maxWidth: "50rem",
-                    gap: "0.4rem",
-                    paddingTop: "2rem",
-                    marginTop: "2rem",
-                    borderTop: "1px solid #c6c6c6",
-                    borderBottom: "1px solid #c6c6c6",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "1.5rem",
-                      marginBottom: "1rem",
-                      width: "auto",
-                      textAlign: "right",
-                      borderRight: "1px solid #c6c6c6",
-                      paddingRight: "1rem",
-                      paddingLeft: "1rem",
-                    }}
-                    className="car-model-card__text__details__item"
-                  >
-                    <span>{car.make}</span>
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "1.5rem",
-                      marginBottom: "1rem",
-                      padding: "0px",
-                      width: "auto",
-                      textAlign: "right",
-                      borderRight: "1px solid #c6c6c6",
-                      paddingRight: "1rem",
-                      paddingLeft: "1rem",
-                    }}
-                    className="car-model-card__text__details__item"
-                  >
+                <Description>{car.description}</Description>
+                <Details>
+                  <Item>
+                    <h4>Make</h4>
+                    <p>{car.make}</p>
+                  </Item>
+                  <Item>
                     <h4>Price</h4>
                     <p>{`Ksh ${car.price}`}</p>
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "1.5rem",
-                      marginBottom: "1rem",
-                      padding: "0px",
-                      width: "auto",
-                      textAlign: "right",
-                      borderRight: "1px solid #c6c6c6",
-                      paddingRight: "1rem",
-                      paddingLeft: "1rem",
-                    }}
-                    className="car-model-card__text__details__item"
-                  >
+                  </Item>
+                  <Item>
                     <h4>Seats</h4>
                     <p>{car.seats}</p>
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "1.5rem",
-                      marginBottom: "1rem",
-                      padding: "0px",
-                      width: "auto",
-                      textAlign: "right",
-                      borderRight: "1px solid #c6c6c6",
-                      paddingRight: "1rem",
-                      paddingLeft: "1rem",
-                    }}
-                    className="car-model-card__text__details__item"
-                  >
+                  </Item>
+                  <Item>
                     <h4>Fuel</h4>
                     <p>{car.fuel}</p>
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "1.5rem",
-                      marginBottom: "1rem",
-                      padding: "0px",
-                      width: "auto",
-                      textAlign: "right",
-                      paddingRight: "1rem",
-                      paddingLeft: "1rem",
-                    }}
-                    className="car-model-card__text__details__item"
-                  >
+                  </Item>
+                  <Item>
                     <h4>Year</h4>
                     <p>{car.year}</p>
-                  </div>
-                </div>
+                  </Item>
+                </Details>
               </div>
-              <div
-                style={{
-                  width: "50%",
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "end",
-                  alignItems: "center",
-                  marginTop: "auto",
-                  // marginBottom: "auto",
-                }}
-              >
+              <ButtonContainer>
+                <LinkContainer show={showLinks}>
+                  <Tooltip text="Whatsapp us to hire a car">
+                    <Link target="_blank" href="https://wa.link/x60ux1">
+                      <NextImage
+                        src="/whatsapp_logo.webp"
+                        alt="Whatsapp Link"
+                        width={50}
+                        height={50}
+                      />
+                    </Link>
+                  </Tooltip>
+
+                  <Tooltip text="Email us to hire a car">
+                    <Link target="_blank" href="mailto:info@pata-ride.com">
+                      <NextImage
+                        src="/email-icon.webp"
+                        alt="Whatsapp Link"
+                        width={45}
+                        height={45}
+                      />
+                    </Link>
+                  </Tooltip>
+                </LinkContainer>
                 <BookButton
                   onClick={() => {
-                    setSnackbarMessage("Feature not available yet");
-                    setSnackbarOpen(true);
+                    setShowLinks(!showLinks);
+                    // setSnackbarMessage("Feature not available yet");
+                    // setSnackbarOpen(true);
                   }}
                   theme={theme}
                 >
                   {/* <Link href="">Book Ride</Link> */}
                   Book Ride
                 </BookButton>
-              </div>
-            </div>
+              </ButtonContainer>
+            </ContainerRow>
           </div>
         </div>
       </Container>
-      {/* <div className="book-banner">
-        <div className="book-banner__overlay"></div>
-        <div className="container">
-          <div className="text-content">
-            <h2>Book a car by getting in touch with us</h2>
-            <span>
-              <i className="fa-solid fa-phone"></i>
-              <h3> +254 (20) 202 0099 </h3>
-            </span>
-          </div>
-        </div>
-      </div> */}
-      {/* <Footer /> */}
       <Snackbar
         message={snackbarMessage}
         isVisible={snackbarOpen}

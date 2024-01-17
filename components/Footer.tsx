@@ -25,11 +25,52 @@ const Content = styled.div<{ theme: any }>`
   justify-content: center;
   text-align: left;
   color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+  div {
+    display: flex;
+    gap: 1rem;
+  }
   ${media("<=desktop")} {
     grid-template-columns: 1fr 1fr;
   }
   ${media("<=tablet")} {
     grid-template-columns: 1fr;
+  }
+`;
+const DocContent = styled.div<{ theme: any }>`
+  display: grid;
+  margin-top: 2rem;
+  color: #010103;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 8rem;
+  justify-content: center;
+  text-align: left;
+  list-style: none;
+
+  color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+  div {
+    display: flex;
+    gap: 1rem;
+  }
+  a {
+    text-decoration: none;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    transition: all 0.2s;
+    font-size: 1.3rem;
+  }
+  a:hover {
+    color: #f8d521;
+  }
+  li {
+    font-size: 1.6rem;
+  }
+  ${media("<=desktop")} {
+    grid-template-columns: 1fr 1fr;
+  }
+  ${media("<=tablet")} {
+    grid-template-columns: 1fr;
+  }
+  ${media("<=tablet")} {
+    text-align: center;
   }
 `;
 const Title = styled.li`
@@ -102,6 +143,10 @@ const SecondList = styled.ul<{ theme: any }>`
     padding: 10px 60px;
     outline: none;
     margin-top: 1rem;
+  }
+  div {
+    display: flex;
+    gap: 1rem;
   }
   ${media("<=tablet")} {
     text-align: center;
@@ -251,9 +296,6 @@ function Footer() {
               <li>
                 <Link href="#home">Contact</Link>
               </li>
-              <li>
-                <Link href="/privacy-policy">T's & C's</Link>
-              </li>
             </SecondList>
 
             <SecondList theme={theme}>
@@ -315,6 +357,29 @@ function Footer() {
               </li>
             </SecondList>
           </Content>
+          <DocContent theme={theme}>
+            <li>
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </li>
+            <li>
+              <Link href="/terms-and-conditions">Terms & Conditions</Link>
+            </li>
+            <li>
+              <Link href="/return-policy">Return Policy</Link>
+            </li>
+            <li>
+              <Link href="/terms-of-use">Terms of Use</Link>
+            </li>
+            <li>
+              <Link href="/terms-of-service">Terms of Service</Link>
+            </li>
+            <li>
+              <Link href="/disclaimer">Disclaimer</Link>
+            </li>
+            <li>
+              <Link href="/copyright">Copyright</Link>
+            </li>
+          </DocContent>
         </Wrapper>
       </FooterWrapper>
     </>

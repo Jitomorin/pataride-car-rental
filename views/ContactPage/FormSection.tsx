@@ -85,89 +85,36 @@ export default function FormSection() {
       >
         <InputGroup>
           <InputStack>
-            {/* {errors.name && <ErrorMessage>Name is required</ErrorMessage>} */}
-            <Input
-              placeholder="Your Name"
-              id="name"
-              name="name"
-              // disabled={isDisabled}
-              // {...register("name", { required: true })}
-            />
+            <Input placeholder="Your Name" id="name" name="name" />
           </InputStack>
           <InputStack>
-            {/* {errors.email && <ErrorMessage>Email is required</ErrorMessage>} */}
-            <Input
-              placeholder="Your Email"
-              id="email"
-              name="email"
-              // disabled={isDisabled}
-              // {...register("email", { required: true })}
-            />
+            <Input placeholder="Your Email" id="email" name="email" />
           </InputStack>
-          {/* phone number */}
           <InputStack>
-            <Input
-              placeholder="Your Phone Number"
-              id="phone"
-              name="phone"
-              // disabled={isDisabled}
-              // {...register("phone", { required: true })}
-            />
+            <Input placeholder="Your Phone Number" id="phone" name="phone" />
           </InputStack>
-          {/* {errors.phone && <ErrorMessage>Phone is required</ErrorMessage>} */}
         </InputGroup>
         <InputStack>
-          <Input
-            placeholder="Subject"
-            id="subject"
-            name="subject"
-            // disabled={isDisabled}
-            // {...register("subject", { required: false })}
-          />
+          <Input placeholder="Subject" id="subject" name="subject" />
         </InputStack>
         <InputStack>
-          {/* {errors.description && (
-            <ErrorMessage>Description is required</ErrorMessage>
-          )} */}
           <Textarea
             as="textarea"
             placeholder="How Can We Help you..."
             id="description"
             name="description"
-            // disabled={isDisabled}
-            // {...register("description", { required: true })}
           />
         </InputStack>
         <InputStack>
-          {/* {errors.description && (
-            <ErrorMessage>Description is required</ErrorMessage>
-          )} */}
-
           <FileButton htmlFor="upload">
-            {/* <FontAwesomeIcon
-              className=" hover:text-[#f2bd28] mx-auto"
-              icon={faPaperclip}
-            /> */}
             <p className="text-2xl">Upload a file</p>
           </FileButton>
-          <File
-            id="upload"
-            type="file"
-            name="upload"
-            // {...register("file", { required: false })}
-          />
+          <File id="upload" type="file" name="upload" />
         </InputStack>
         <input type="hidden" name="_template" value="basic" />
-        {/* <input type="hidden" name="_next" value="https://coremaestro.co.ke/contact" /> */}
-        <Button
-          as="button"
-          type="submit"
-
-          // disabled={isSubmitDisabled}
-        >
+        <Button as="button" type="submit">
           Send Message
         </Button>
-        {/* <ValidationError prefix="Email" field="email" errors={state.errors} /> */}
       </Form>
     </Wrapper>
   );

@@ -16,6 +16,7 @@ import styles from "./PostBody.module.css";
 import { SanityImage } from "./SanityImage";
 import styled from "styled-components";
 import { media } from "@/utils/media";
+import { useTheme } from "./Theme";
 
 const myPortableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
@@ -33,15 +34,17 @@ const myPortableTextComponents: Partial<PortableTextReactComponents> = {
 };
 
 export default function PostBody({ content }: any) {
+  const { theme }: any = useTheme();
   return (
-    <Wrapper className={`${styles.portableText} mx-auto`}>
+    <Wrapper theme={theme} className={`${styles.portableText} mx-auto`}>
       <PortableText value={content} components={myPortableTextComponents} />
     </Wrapper>
   );
 }
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ theme: any }>`
   margin: 0 18rem;
   font-family: "Poppins", sans-serif;
+  color: ${(props) => (props.theme !== "light" ? "#fff" : "#010103")};
   ${media("<=largeDesktop")} {
     margin: 0 5rem;
   }

@@ -55,7 +55,7 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
                   onSubmit(event, subscribe)
                 }
               >
-                <CloseIconContainer>
+                <CloseIconContainer theme={theme}>
                   <CloseIcon onClick={onClose} />
                 </CloseIconContainer>
                 {hasSignedUp && <MailSentState />}
