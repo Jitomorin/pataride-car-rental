@@ -68,7 +68,7 @@ const EnlistForm = styled.div<{ theme: any }>`
     border: none;
     outline: none;
     margin-bottom: 2.5rem;
-    color: #fff;
+    color: ${(props) => (props.theme === "light" ? "#272a2c" : "#fff")};
   }
   form button {
     background-color: #f8d521;
@@ -233,7 +233,7 @@ const RegisterCar = () => {
               </label>
               <input
                 type="file"
-                value={carImage}
+                // value={carImage}
                 accept="image/*"
                 onChange={(e: any) => {
                   if (e.target.files.length > 0) {
