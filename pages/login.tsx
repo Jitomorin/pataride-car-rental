@@ -14,6 +14,7 @@ import { login } from "@/utils/firebase/authentication";
 import Snackbar from "@/components/Snackbar";
 import { useTheme } from "@/components/Theme";
 import styled from "styled-components";
+import { firebaseAuthErrors } from "@/utils/firebase/config";
 
 const Wrapper = styled.section<{ theme: any }>`
   background-color: ${(props) =>
@@ -148,7 +149,19 @@ function LogIn() {
   const [snackbarMessage, setSnackbarMessage] = useState("Default Message");
 
   const emailCheck = () => {
-    return email !== "" && email.includes("@") && email.includes(".com");
+    return (
+      email !== "" &&
+      email.includes("@") &&
+      email.includes("@") &&
+      (email.includes(".com") ||
+        email.includes(".edu") ||
+        email.includes(".net") ||
+        email.includes(".org") ||
+        email.includes(".gov") ||
+        email.includes(".co") ||
+        email.includes(".io") ||
+        email.includes(".ai"))
+    );
   };
   const passwordCheck = () => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -172,16 +185,27 @@ function LogIn() {
       setSnackbarOpen(true);
       return;
     } else {
-      login(email, password).then((userCredential) => {
-        if (userCredential) {
-          const user = userCredential.user;
-          console.log(user);
-          router.push("/");
-        } else {
-          setSnackbarMessage("Error logging in");
-          setSnackbarOpen(true);
-        }
-      });
+      login(email, password)
+        .then((userCredential: any) => {
+          if (userCredential) {
+            const user = userCredential.user;
+            console.log(user);
+            router.push("/");
+          } else {
+            // console.log("error:", userCredential);
+            // setSnackbarMessage("Error logging in");
+            // setSnackbarOpen(true);
+          }
+        })
+        .catch((error) => {
+          console.log("error:", error.code);
+          firebaseAuthErrors
+            .filter((doc) => doc?.code === error.code)
+            .map((doc) => {
+              setSnackbarMessage(doc?.message);
+              setSnackbarOpen(true);
+            });
+        });
     }
   };
 

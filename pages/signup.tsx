@@ -148,7 +148,19 @@ function SignUp() {
   const [snackbarMessage, setSnackbarMessage] = useState("Default Message");
 
   const emailCheck = () => {
-    return email !== "" && email.includes("@") && email.includes(".com");
+    return (
+      email !== "" &&
+      email.includes("@") &&
+      email.includes("@") &&
+      (email.includes(".com") ||
+        email.includes(".edu") ||
+        email.includes(".net") ||
+        email.includes(".org") ||
+        email.includes(".gov") ||
+        email.includes(".co") ||
+        email.includes(".io") ||
+        email.includes(".ai"))
+    );
   };
   const passwordCheck = () => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -189,6 +201,7 @@ function SignUp() {
     } else {
       signup(email, password).then((userCredential: any) => {
         if (!userCredential) {
+          console.log("error:", userCredential);
           setSnackbarMessage("Error creating account");
           setSnackbarOpen(true);
         } else {

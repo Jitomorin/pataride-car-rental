@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/terms-of-service": "pages/terms-of-service.js",
-  "/privacy-policy": "pages/privacy-policy.js",
-  "/copyright": "pages/copyright.js"
+  "/signup": "pages/signup.js",
+  "/": "pages/index.js",
+  "/login": "pages/login.js"
 }
