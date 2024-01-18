@@ -58,19 +58,25 @@ const PickBoxButton = styled.button<{ theme: any; active: boolean }>`
   font-size: 2rem;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   padding: 1.5rem 2.5rem;
   background-color: ${(props) =>
+    props.theme === "light" ? "##f8f8f8" : "#000"};
+  background-color: ${(props) => (!props.active ? "#F8D521" : "")};
+  color: ${(props) =>
     props.theme === "light"
-      ? (props) => (!props.active ? "#F8D521" : "#fff")
-      : (props) => (!props.active ? "#F8D521" : "#414141")};
-  color: ${(props) => (props.active ? "" : "#fff")};
+      ? (props) => (!props.active ? "#fff" : "#000")
+      : (props) => (!props.active ? "#fff" : "#fff")};
   transition: all 0.2s;
   text-align: left;
 
   &:hover {
-    background-color: #a5a4a4;
+    background-color: ${(props) =>
+      !props.active
+        ? ""
+        : (props) => (props.theme === "light" ? "#E0E0E0" : "#414141")};
     color: white;
   }
 `;
@@ -105,6 +111,7 @@ function PickCar() {
               {/* pick car */}
               <PickBox theme={theme}>
                 <PickBoxButton
+                  theme={theme}
                   active={coloringButton("btn1")}
                   // className={`${coloringButton("btn1")}`}
                   onClick={() => {
@@ -115,6 +122,7 @@ function PickCar() {
                   Audi A1 S-Line
                 </PickBoxButton>
                 <PickBoxButton
+                  theme={theme}
                   active={coloringButton("btn2")}
                   id="btn2"
                   onClick={() => {
@@ -125,6 +133,7 @@ function PickCar() {
                   VW Golf 6
                 </PickBoxButton>
                 <PickBoxButton
+                  theme={theme}
                   active={coloringButton("btn3")}
                   id="btn3"
                   onClick={() => {
@@ -135,6 +144,7 @@ function PickCar() {
                   Toyota Camry
                 </PickBoxButton>
                 <PickBoxButton
+                  theme={theme}
                   active={coloringButton("btn4")}
                   id="btn4"
                   onClick={() => {
@@ -145,6 +155,7 @@ function PickCar() {
                   BMW 320 ModernLine
                 </PickBoxButton>
                 <PickBoxButton
+                  theme={theme}
                   active={coloringButton("btn5")}
                   id="btn5"
                   onClick={() => {
@@ -155,6 +166,7 @@ function PickCar() {
                   Mercedes-Benz GLK
                 </PickBoxButton>
                 <PickBoxButton
+                  theme={theme}
                   active={coloringButton("btn6")}
                   id="btn6"
                   onClick={() => {

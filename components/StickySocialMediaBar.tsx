@@ -5,9 +5,11 @@ import { FacebookIcon, LinkedinIcon } from "react-share";
 import NextLink from "next/link";
 import { media } from "../utils/media";
 import Link from "next/link";
+import { useTheme } from "./Theme";
 
 export default function StickySocialMediaBar() {
   const [isMobile, setIsMobile] = useState(false);
+  const { theme }: any = useTheme();
 
   useEffect(() => {
     // Add event listener to check screen width on mount and resize
@@ -28,46 +30,82 @@ export default function StickySocialMediaBar() {
       <ShareBar>
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
-            <img
-              src="/linkedin-icon.png"
-              alt="Linkedin Link"
-              width={isMobile ? 45 : 30}
-              height={isMobile ? 45 : 30}
-            />
+            {theme === "light" ? (
+              <img
+                src="/linkedin-icon.png"
+                alt="Linkedin Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            ) : (
+              <img
+                src="/linkedin-icon-white.png"
+                alt="Linkedin Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            )}
             {/* <LinkedinIcon size={isMobile ? 50 : 40} round={true} /> */}
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
             {/* <TwitterIcon size={50} round={true} /> */}
-            <img
-              src="/instagram-icon.png"
-              alt="Instagram Link"
-              width={isMobile ? 45 : 30}
-              height={isMobile ? 45 : 30}
-            />
+            {theme === "light" ? (
+              <img
+                src="/instagram-icon.png"
+                alt="Instagram Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            ) : (
+              <img
+                src="/instagram-icon-white.png"
+                alt="Instagram Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            )}
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
-            <img
-              src="/facebook-icon.png"
-              alt="Whatsapp Link"
-              width={isMobile ? 45 : 30}
-              height={isMobile ? 45 : 30}
-            />
+            {theme === "light" ? (
+              <img
+                src="/facebook-icon.png"
+                alt="Facebook Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            ) : (
+              <img
+                src="/facebook-icon-white.png"
+                alt="Facebook Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            )}
             {/* <FacebookIcon size={isMobile ? 50 : 40} round={true} /> */}
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
             {/* <TwitterIcon size={50} round={true} /> */}
-            <img
-              src="/whatsapp-icon.png"
-              alt="Whatsapp Link"
-              width={isMobile ? 45 : 30}
-              height={isMobile ? 45 : 30}
-            />
+            {theme === "light" ? (
+              <img
+                src="/whatsapp-icon.png"
+                alt="Whatsapp Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            ) : (
+              <img
+                src="/whatsapp-icon-white.png"
+                alt="Whatsapp Link"
+                width={isMobile ? 45 : 30}
+                height={isMobile ? 45 : 30}
+              />
+            )}
           </Link>
         </SocialmediaLink>
       </ShareBar>

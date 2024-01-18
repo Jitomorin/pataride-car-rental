@@ -28,6 +28,7 @@ const Spinner = styled.div`
 const Wrapper = styled.div`
   gap: 11rem;
   display: flex;
+  border-radius: 10px;
   justify-content: space-between;
   ${media("<=largeDesktop")} {
     gap: 2rem;
@@ -55,6 +56,7 @@ const Description = styled.div`
 `;
 const Price = styled.div<{ theme: any }>`
   width: 100%;
+  border-radius: 10px;
   background-color: ${(props) =>
     props.theme === "light" ? "#999291" : "#414141"};
   font-size: 1.8rem;
@@ -73,39 +75,32 @@ const Table = styled.div<{ theme: any }>`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  border-bottom: 1px solid #d5d5d5;
   color: ${(props) => (props.theme === "light" ? "#000" : "#fff")};
 `;
 const Column = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  text-align: center;
+  text-align: left;
   grid-template-rows: auto;
   padding: 0.9rem 0.5rem;
-  border-bottom: 2px solid #706f7b;
-  border-right: 2px solid #706f7b;
-  border-left: 2px solid #706f7b;
-  span:nth-child(1) {
-    border-right: 2px solid #706f7b;
+  p {
+    font-weight: 700;
   }
 `;
-const AnimatedButton = styled.a<{ theme: any }>`
-  font-size: 2rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: 600;
-  color: white;
-  font-family: "Poppins", sans-serif;
-  background-color: #868686;
-  padding: 1rem 1rem;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin-top: 1.4rem;
+const AnimatedButton = styled.button<{ theme: any }>`
+  margin-top: 2rem;
+  background-color: #f8d521;
+  padding: 1.8rem 3rem;
+  border-radius: 0.3rem;
   transition: all 0.3s;
-  box-shadow: 6px 6px 0 #efe9e9;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
   &:hover {
-    background-color: #222222;
+    scale: 1.07;
   }
 `;
 
@@ -132,42 +127,44 @@ function CarBox({ data, carID, theme }: any) {
             </Price>
             <Table theme={theme}>
               <Column>
-                <span>Model</span>
+                <p>Model</p>
                 <span>{car.model}</span>
               </Column>
 
               <Column>
-                <span>Mark</span>
+                <p>Mark</p>
                 <span>{car.mark}</span>
               </Column>
 
               <Column>
-                <span>Year</span>
+                <p>Year</p>
                 <span>{car.year}</span>
               </Column>
 
               <Column>
-                <span>Doors</span>
+                <p>Doors</p>
                 <span>{car.doors}</span>
               </Column>
 
               <Column>
-                <span>AC</span>
+                <p>AC</p>
                 <span>{car.air}</span>
               </Column>
 
               <Column>
-                <span>Transmission</span>
+                <p>Transmission</p>
                 <span>{car.transmission}</span>
               </Column>
 
               <Column>
-                <span>Fuel</span>
+                <p>Fuel</p>
                 <span>{car.fuel}</span>
               </Column>
             </Table>
             {/* btn cta */}
-            <AnimatedButton href="/rent-now">Reserve Now</AnimatedButton>
+            <AnimatedButton>
+              <Link href="/rent-now">Rent Now</Link>
+            </AnimatedButton>
           </Description>
         </Wrapper>
       ))}

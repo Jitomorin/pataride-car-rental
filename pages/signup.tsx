@@ -12,6 +12,7 @@ import { signOut } from "firebase/auth";
 import Snackbar from "@/components/Snackbar";
 import styled from "styled-components";
 import { useTheme } from "@/components/Theme";
+import { firebaseAuthErrors } from "@/utils/firebase/config";
 
 const Wrapper = styled.section<{ theme: any }>`
   background-color: ${(props) =>
@@ -199,25 +200,35 @@ function SignUp() {
       setLoading(false);
       return;
     } else {
-      signup(email, password).then((userCredential: any) => {
-        if (!userCredential) {
-          console.log("error:", userCredential);
-          setSnackbarMessage("Error creating account");
-          setSnackbarOpen(true);
-        } else {
-          setSnackbarMessage("Redirecting to login page");
-          setSnackbarOpen(true);
-          const uid = userCredential.user?.uid;
-          addUser({ uid, email, fullName, isHost: false }).then(() => {
-            console.log("User added successfully");
-            logout().then(() => {
-              console.log("User logged out");
+      signup(email, password)
+        .then((userCredential: any) => {
+          if (!userCredential) {
+            console.log("error:", userCredential);
+            setSnackbarMessage("Error creating account");
+            setSnackbarOpen(true);
+          } else {
+            setSnackbarMessage("Redirecting to login page");
+            setSnackbarOpen(true);
+            const uid = userCredential.user?.uid;
+            addUser({ uid, email, fullName, isHost: false }).then(() => {
+              console.log("User added successfully");
+              logout().then(() => {
+                console.log("User logged out");
 
-              router.push("/login");
+                router.push("/login");
+              });
             });
-          });
-        }
-      });
+          }
+        })
+        .catch((error) => {
+          console.log("error:", error.code);
+          firebaseAuthErrors
+            .filter((doc) => doc?.code === error.code)
+            .map((doc) => {
+              setSnackbarMessage(doc?.message);
+              setSnackbarOpen(true);
+            });
+        });
     }
     // signup function
 
