@@ -1,5 +1,10 @@
 import Container from "@/components/Container";
 import { useTheme } from "@/components/Theme";
+import { getAllEmployees, getClient } from "@/sanity/lib/client";
+import { urlForImage } from "@/sanity/lib/image";
+import { Employee } from "@/sanity/lib/queries";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.section<{ theme: any }>`
@@ -41,6 +46,7 @@ const TeamContainer = styled.section<{ theme: any }>`
   grid-template-rows: auto;
   gap: 4rem;
   align-items: center;
+  justify-items: center;
   text-align: center;
   padding: 10rem 2rem;
   width: 110rem;
@@ -50,7 +56,12 @@ const TeamContainer = styled.section<{ theme: any }>`
     width: -moz-fit-content;
     width: fit-content;
   }
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  @media (max-width: 425px) {
     grid-template-columns: 1fr;
     width: -moz-fit-content;
     width: fit-content;
@@ -60,18 +71,45 @@ const Box = styled.div<{ theme: any }>`
   width: 33rem;
   background-color: ${(props) =>
     props.theme === "light" ? "#fff" : "#0b0b0b"};
-  box-shadow: 0px 20px 10px 0px rgba(0, 0, 0, 0.08);
+  // border: 1px solid #d5d5d5;
+  img {
+    transition: ease-in-out 0.3s;
+  }
+  h3 {
+    transition: ease-in-out 0.3s;
+  }
+  p {
+    transition: ease-in-out 0.6s;
+  }
+  &:hover {
+    img {
+      scale: 1.04;
+    }
+    h3 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #777777;
+    }
+  }
   @media (max-width: 400px) {
     width: 100%;
   }
 `;
 const ImageContainer = styled.div`
   width: 100%;
-  height: auto;
-  background-color: ${(props) =>
-    props.theme === "light" ? "#f6f6f6" : "#fff"};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+
   img {
-    width: 100%;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 100%;
+    // height: 100%;
   }
 `;
 const Description = styled.div<{ theme: any }>`
@@ -85,10 +123,26 @@ const Description = styled.div<{ theme: any }>`
     font-weight: 500;
     color: #777777;
   }
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  div a {
+    transition: ease-in-out 0.3s;
+    &:hover {
+      scale: 1.2;
+    }
+    height: 3rem;
+    width: 3rem;
+  }
 `;
 
 function Team() {
   const { theme }: any = useTheme();
+  const [employeesList, setEmployeesList] = useState<Employee[]>([]);
   const teamPpl = [
     { img: "/images/team/1.png", name: "James Brian", job: "Marketing Head" },
     { img: "/images/team/2.png", name: "Diaz Lopez", job: "CEO" },
@@ -100,6 +154,16 @@ function Team() {
     },
     { img: "/images/team/5.png", name: "Martin Lawrence", job: "CEO" },
   ];
+
+  useEffect(() => {
+    const client = getClient();
+    const fetchEmployees = async () => {
+      const employees = await getAllEmployees(client);
+      console.log("employees: ", employees);
+      setEmployeesList(employees);
+    };
+    fetchEmployees();
+  }, []);
   return (
     <>
       {/* <Navbar /> */}
@@ -108,14 +172,34 @@ function Team() {
         <Container>
           <Header theme={theme}>Come meet our Team</Header>
           <TeamContainer>
-            {teamPpl.map((ppl, id) => (
+            {employeesList.map((ppl: any, id) => (
               <Box theme={theme} key={id}>
                 <ImageContainer theme={theme}>
-                  <img src={ppl.img} alt="team_img" />
+                  <img
+                    src={urlForImage(ppl.image?.asset?._ref).url()}
+                    alt="team_img"
+                  />
                 </ImageContainer>
                 <Description theme={theme}>
-                  <h3>{ppl.name}</h3>
-                  <p>{ppl.job}</p>
+                  <h3>{ppl.fullName}</h3>
+                  <p>{ppl.position}</p>
+                  <div>
+                    {ppl.linkedin && (
+                      <Link target="_blank" href={ppl.linkedin}>
+                        <img src="/linkedin-icon.png" alt="linkedin" />
+                      </Link>
+                    )}
+                    {ppl.facebook && (
+                      <Link target="_blank" href={ppl.facebook}>
+                        <img src="/facebook-icon.png" alt="facebook" />
+                      </Link>
+                    )}
+                    {ppl.instagram && (
+                      <Link target="_blank" href={ppl.instagram}>
+                        <img src="/instagram-icon.png" alt="instagram" />
+                      </Link>
+                    )}
+                  </div>
                 </Description>
               </Box>
             ))}

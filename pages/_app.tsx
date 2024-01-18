@@ -34,13 +34,7 @@ export interface SharedPageProps {
   draftMode: boolean;
   token: string;
 }
-const navItems: NavItems = [
-  { title: "Home", href: "/" },
-  { title: "About", href: "/about" },
-  { title: "Services", href: "/services" },
-  { title: "HR News", href: "/posts" },
-  { title: "Contact", href: "/contact" },
-];
+const navItems: NavItems = [];
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);

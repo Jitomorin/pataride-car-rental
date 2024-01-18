@@ -20,8 +20,7 @@ import { settingsStructure } from "./plugins/settings";
 import { previewDocumentNode } from "./plugins/previewPane";
 import privacyPolicyType from "./sanity/schemas/privacy-policy";
 
-const title =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Core Maestro Management";
+const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Pata-ride";
 
 export default defineConfig({
   basePath: "/cms",
@@ -31,13 +30,11 @@ export default defineConfig({
   // Add and edit the content schema in the './sanity/schema' folder
   schema: {
     types: [
-      authorType,
-      postType,
-      settingsType,
+      // authorType,
+      // postType,
       employeeType,
-      serviceType,
-      categorytype,
-      partnerType,
+      // serviceType,
+      // categorytype,
       privacyPolicyType,
     ],
   },

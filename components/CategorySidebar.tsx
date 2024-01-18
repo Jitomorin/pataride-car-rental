@@ -3,14 +3,10 @@ import NextImage from "next/image";
 import styled, { css } from "styled-components";
 import NextLink from "next/link";
 import { media } from "../utils/media";
-import { Category } from "@/sanity/lib/queries";
+// import { Category } from "@/sanity/lib/queries";
 import Link from "next/link";
 
-export default function CategorySidebar({
-  categories,
-}: {
-  categories: Category[];
-}) {
+export default function CategorySidebar({ categories }: { categories: any[] }) {
   return (
     <Wrapper>
       <Heading>Categories</Heading>
