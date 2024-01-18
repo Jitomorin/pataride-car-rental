@@ -90,6 +90,7 @@ const AuthLink = styled.div<{ theme: any }>`
   color: #000;
   text-decoration: none;
   display: flex;
+  transition: ease-in-out 0.3s;
   p {
     margin-right: 2px;
     @media (max-width: 768px) {
@@ -104,6 +105,7 @@ const AuthLink = styled.div<{ theme: any }>`
   }
   a:hover {
     scale: 1.03;
+    transition: ease-in-out 0.3s;
   }
 `;
 const AltSigninContianer = styled.div<{ theme: any }>`

@@ -9,8 +9,11 @@ const Wrapper = styled.button`
   border-radius: 15px;
   padding: 20px;
   width: 100%;
+  transition: ease-in-out 0.3s;
+
   &:hover {
     scale: 1.02;
+    transition: ease-in-out 0.3s;
   }
 `;
 
