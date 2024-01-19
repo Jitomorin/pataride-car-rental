@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SharedPageProps } from "../_app";
 import styled from "styled-components";
 import { GetServerSideProps, GetStaticPathsResult, GetStaticProps } from "next";
 import NextImage from "next/image";
 import {
+  getAllLinks,
   getAllServiceSlugs,
   getClient,
   getServiceBySlug,
@@ -141,12 +142,24 @@ export default function carSlugRoute(props: CarProps) {
   const router = useRouter();
   const { theme }: any = useTheme();
   const [showLinks, setShowLinks] = useState(false);
+  const [links, setLinks] = useState<any[]>([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("Default Message");
   const { car }: any = props;
   if (router.isFallback) {
     return <Loading />;
   }
+
+  useEffect(() => {
+    async function fetchLinks() {
+      const client = getClient();
+      const res: any = await getAllLinks(client);
+      console.log("Links: ", res);
+      setLinks(res);
+    }
+    fetchLinks();
+  }, []);
+
   return (
     <Wrapper theme={theme}>
       <HeroPages subRoute={true} name={`${car.name}`} />
@@ -221,27 +234,33 @@ export default function carSlugRoute(props: CarProps) {
               </div>
               <ButtonContainer>
                 <LinkContainer show={showLinks}>
-                  <Tooltip text="Whatsapp us to hire a car">
-                    <Link target="_blank" href="https://wa.link/x60ux1">
-                      <NextImage
-                        src="/whatsapp_logo.webp"
-                        alt="Whatsapp Link"
-                        width={50}
-                        height={50}
-                      />
-                    </Link>
-                  </Tooltip>
-
-                  <Tooltip text="Email us to hire a car">
-                    <Link target="_blank" href="mailto:info@pata-ride.com">
-                      <NextImage
-                        src="/email-icon.webp"
-                        alt="Whatsapp Link"
-                        width={45}
-                        height={45}
-                      />
-                    </Link>
-                  </Tooltip>
+                  {links[0]?.bookWhatsapp && (
+                    <Tooltip text="Whatsapp us to hire a car">
+                      <Link target="_blank" href={links[0]?.bookWhatsapp}>
+                        <NextImage
+                          src="/whatsapp_logo.webp"
+                          alt="Whatsapp Link"
+                          width={50}
+                          height={50}
+                        />
+                      </Link>
+                    </Tooltip>
+                  )}
+                  {links[0]?.bookEmail && (
+                    <Tooltip text="Email us to hire a car">
+                      <Link
+                        target="_blank"
+                        href={`mailto:${links[0]?.bookEmail}`}
+                      >
+                        <NextImage
+                          src="/email-icon.webp"
+                          alt="Whatsapp Link"
+                          width={45}
+                          height={45}
+                        />
+                      </Link>
+                    </Tooltip>
+                  )}
                 </LinkContainer>
                 <BookButton
                   onClick={() => {

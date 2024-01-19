@@ -49,7 +49,7 @@ export default function ProfileModal({ onClose }: ProfileModalProps) {
           <>
             {/* <Title theme={theme}>Profile</Title> */}
             <Column theme={theme}>
-              <h1>Profile</h1>
+              <h1>You are logged in</h1>
               <span>
                 <p>Full Name</p>
                 {user?.fullName}

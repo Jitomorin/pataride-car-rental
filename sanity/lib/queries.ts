@@ -42,6 +42,8 @@ export const testimonialsQuery = groq`
 *[_type == "testimonial"]`;
 export const topCarsQuery = groq`
 *[_type == "topCar"]`;
+export const linksQuery = groq`
+*[_type == "link"]`;
 export const privacyPolicyQuery = groq`
 *[_type == "privacy-policy"]`;
 export const servicesQuery = groq`
@@ -105,6 +107,14 @@ export interface Category {
   title: string;
   slug?: string;
   description: string;
+}
+export interface Link {
+  linkedinUrl?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+  whatsappUrl?: string;
+  bookWhatsapp?: string;
+  bookEmail?: string;
 }
 export interface TopCar {
   uid: string;

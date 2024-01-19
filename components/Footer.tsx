@@ -5,6 +5,8 @@ import { media } from "@/utils/media";
 import NextImage from "next/image";
 import { FacebookIcon, LinkedinIcon } from "react-share";
 import { useNewsletterModalContext } from "@/contexts/newsletter-modal.context";
+import { useEffect, useState } from "react";
+import { getAllLinks, getClient } from "@/sanity/lib/client";
 
 const FooterWrapper = styled.div<{ theme: any }>`
   background-color: ${(props) =>
@@ -232,6 +234,18 @@ const SubmitButton = styled.button`
 function Footer() {
   const { theme }: any = useTheme();
   const { setIsModalOpened } = useNewsletterModalContext();
+  const [links, setLinks] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchLinks() {
+      const client = getClient();
+      const res: any = await getAllLinks(client);
+      console.log("Links: ", res);
+      setLinks(res);
+    }
+    fetchLinks();
+  }, []);
+
   return (
     <>
       <FooterWrapper theme={theme}>
@@ -306,38 +320,46 @@ function Footer() {
             </SecondList>
             <SocialMediaList theme={theme}>
               <Title>Find us on:</Title>
-              <li>
-                <Link target="_blank" href="#" passHref>
-                  <LinkedinIcon size={40} round={true} />
-                </Link>
-              </li>
-              <li>
-                <Link target="_blank" href="#" passHref>
-                  {/* <TwitterIcon size={50} round={true} /> */}
-                  <NextImage
-                    src="/instagram_logo.webp"
-                    alt="Instagram Link"
-                    width={50}
-                    height={50}
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link target="_blank" href="#" passHref>
-                  <FacebookIcon size={40} round={true} />
-                </Link>
-              </li>
-              <li>
-                <Link target="_blank" href="#" passHref>
-                  {/* <TwitterIcon size={50} round={true} /> */}
-                  <NextImage
-                    src="/whatsapp_logo.webp"
-                    alt="Whatsapp Link"
-                    width={45}
-                    height={45}
-                  />
-                </Link>
-              </li>
+              {links[0]?.linkedin && (
+                <li>
+                  <Link target="_blank" href="#" passHref>
+                    <LinkedinIcon size={40} round={true} />
+                  </Link>
+                </li>
+              )}
+              {links[0]?.instagram && (
+                <li>
+                  <Link target="_blank" href="#" passHref>
+                    {/* <TwitterIcon size={50} round={true} /> */}
+                    <NextImage
+                      src="/instagram_logo.webp"
+                      alt="Instagram Link"
+                      width={50}
+                      height={50}
+                    />
+                  </Link>
+                </li>
+              )}
+              {links[0]?.facebook && (
+                <li>
+                  <Link target="_blank" href="#" passHref>
+                    <FacebookIcon size={40} round={true} />
+                  </Link>
+                </li>
+              )}
+              {links[0]?.whatsapp && (
+                <li>
+                  <Link target="_blank" href="#" passHref>
+                    {/* <TwitterIcon size={50} round={true} /> */}
+                    <NextImage
+                      src="/whatsapp_logo.webp"
+                      alt="Whatsapp Link"
+                      width={45}
+                      height={45}
+                    />
+                  </Link>
+                </li>
+              )}
             </SocialMediaList>
 
             <SecondList theme={theme}>

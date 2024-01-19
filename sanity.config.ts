@@ -20,6 +20,7 @@ import { settingsStructure } from "./plugins/settings";
 import { previewDocumentNode } from "./plugins/previewPane";
 import privacyPolicyType from "./sanity/schemas/privacy-policy";
 import topCarType from "./sanity/schemas/topCar";
+import linkType from "./sanity/schemas/link";
 
 const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Pata-ride";
 
@@ -36,6 +37,7 @@ export default defineConfig({
       employeeType,
       testimonialType,
       topCarType,
+      linkType,
       // serviceType,
       // categorytype,
       privacyPolicyType,

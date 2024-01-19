@@ -5,7 +5,9 @@ import { urlForImage } from "@/sanity/lib/image";
 import { Employee } from "@/sanity/lib/queries";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FacebookIcon, LinkedinIcon } from "react-share";
 import styled from "styled-components";
+import NextImage from "next/image";
 
 const Wrapper = styled.section<{ theme: any }>`
   background-color: ${(props) =>
@@ -131,12 +133,18 @@ const Description = styled.div<{ theme: any }>`
     margin-top: 2rem;
   }
   div a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: ease-in-out 0.3s;
     &:hover {
       scale: 1.2;
     }
     height: 3rem;
     width: 3rem;
+  }
+  img {
+    padding: 0;
   }
 `;
 
@@ -186,17 +194,22 @@ function Team() {
                   <div>
                     {ppl.linkedin && (
                       <Link target="_blank" href={ppl.linkedin}>
-                        <img src="/linkedin-icon.png" alt="linkedin" />
+                        <LinkedinIcon size={23} round={true} />
                       </Link>
                     )}
                     {ppl.facebook && (
                       <Link target="_blank" href={ppl.facebook}>
-                        <img src="/facebook-icon.png" alt="facebook" />
+                        <FacebookIcon size={23} round={true} />
                       </Link>
                     )}
                     {ppl.instagram && (
                       <Link target="_blank" href={ppl.instagram}>
-                        <img src="/instagram-icon.png" alt="instagram" />
+                        <NextImage
+                          src="/instagram_logo.webp"
+                          alt="instagram"
+                          width={100}
+                          height={100}
+                        />
                       </Link>
                     )}
                   </div>

@@ -1,10 +1,11 @@
 import { urlForImage } from "@/sanity/lib/image";
 import { media } from "@/utils/media";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
 import NextImage from "next/image";
+import { getAllLinks, getClient } from "@/sanity/lib/client";
 
 const Spinner = styled.div`
   @keyframes rotation {
@@ -155,6 +156,17 @@ const AnimatedButton = styled.button<{ theme: any }>`
 function CarBox({ car, carID, theme }: any) {
   const [carLoad, setCarLoad] = useState(true);
   const [showLinks, setShowLinks] = useState(false);
+  const [links, setLinks] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchLinks() {
+      const client = getClient();
+      const res: any = await getAllLinks(client);
+      console.log("Links: ", res);
+      setLinks(res);
+    }
+    fetchLinks();
+  }, []);
 
   return (
     <Wrapper>
@@ -206,27 +218,33 @@ function CarBox({ car, carID, theme }: any) {
         {/* btn cta */}
         <ButtonContainer>
           <LinkContainer show={showLinks}>
-            <Tooltip text="Whatsapp us to hire a car">
-              <BookLink target="_blank" href="https://wa.link/x60ux1">
-                <NextImage
-                  src="/whatsapp_logo.webp"
-                  alt="Whatsapp Link"
-                  width={50}
-                  height={50}
-                />
-              </BookLink>
-            </Tooltip>
-
-            <Tooltip text="Email us to hire a car">
-              <BookLink target="_blank" href="mailto:info@pata-ride.com">
-                <NextImage
-                  src="/email-icon.webp"
-                  alt="Whatsapp Link"
-                  width={45}
-                  height={45}
-                />
-              </BookLink>
-            </Tooltip>
+            {links[0]?.bookWhatsapp && (
+              <Tooltip text="Whatsapp us to hire a car">
+                <BookLink target="_blank" href={links[0]?.bookWhatsapp}>
+                  <NextImage
+                    src="/whatsapp_logo.webp"
+                    alt="Whatsapp Link"
+                    width={50}
+                    height={50}
+                  />
+                </BookLink>
+              </Tooltip>
+            )}
+            {links[0]?.bookEmail && (
+              <Tooltip text="Email us to hire a car">
+                <BookLink
+                  target="_blank"
+                  href={`mailto:${links[0]?.bookEmail}`}
+                >
+                  <NextImage
+                    src="/email-icon.webp"
+                    alt="Whatsapp Link"
+                    width={45}
+                    height={45}
+                  />
+                </BookLink>
+              </Tooltip>
+            )}
           </LinkContainer>
           <BookButton
             onClick={() => {
