@@ -1,9 +1,10 @@
+import { description } from "@/lib/demo.data";
 import { UsersIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "employee",
-  title: "Employee",
+  title: "Employees",
   icon: UsersIcon,
   type: "document",
   fields: [
@@ -45,8 +46,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      fullName: "fullName",
-      position: "position",
+      title: "fullName",
+      description: "position",
       media: "image",
     },
   },

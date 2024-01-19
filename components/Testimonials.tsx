@@ -2,6 +2,14 @@ import styled from "styled-components";
 import Container from "./Container";
 import { useTheme } from "./Theme";
 import { media } from "@/utils/media";
+import { useEffect, useState } from "react";
+import {
+  getAllEmployees,
+  getAllTestimonials,
+  getClient,
+} from "@/sanity/lib/client";
+import { set } from "sanity";
+import { urlForImage } from "@/sanity/lib/image";
 
 const Wrapper = styled.section<{ theme: any }>`
   background-color: ${(props) =>
@@ -102,6 +110,18 @@ const Profile = styled.div`
 
 function Testimonials() {
   const { theme }: any = useTheme();
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    const client = getClient();
+    const fetchTestimonials = async () => {
+      const res: any = await getAllTestimonials(client);
+      console.log("testimonials: ", res);
+      setTestimonials(res);
+    };
+    fetchTestimonials();
+  }, []);
+
   return (
     <>
       <Wrapper theme={theme}>
@@ -117,63 +137,28 @@ function Testimonials() {
             </TitleContainer>
 
             <AllTestimonials>
-              <TestimonialBox theme={theme}>
-                <Quotes>
-                  <i className="fa-solid fa-quote-right"></i>
-                </Quotes>
-                <p>
-                  "As a host i am glad to be on this platform. A vast market of
-                  well behavewd clients and a relieable intermediary to ensure
-                  that i am genuinely and timely compensated"
-                </p>
-                <Name>
-                  <Profile>
-                    <img src={"/images/testimonials/3.png"} alt="user_img" />
-                    <span>
-                      <h4>Mtaani Ridez</h4>
-                      {/* <p>Belgrade</p> */}
-                    </span>
-                  </Profile>
-                </Name>
-              </TestimonialBox>
-
-              <TestimonialBox theme={theme}>
-                <Quotes>
-                  <i className="fa-solid fa-quote-right"></i>
-                </Quotes>
-                <p>
-                  "I will definetly have my road trip bookings with Pata-Ride. A
-                  variety of off-road cars for the likes of us who like camping
-                  and uneven terrain"
-                </p>
-                <Name>
-                  <Profile>
-                    <img src={"/images/testimonials/3.png"} alt="user_img" />
-                    <span>
-                      <h4>Bush Hunter</h4>
-                      {/* <p>Novi Sad</p> */}
-                    </span>
-                  </Profile>
-                </Name>
-              </TestimonialBox>
-              <TestimonialBox theme={theme}>
-                <Quotes>
-                  <i className="fa-solid fa-quote-right"></i>
-                </Quotes>
-                <p>
-                  "The car was in great condition and made our trip even better.
-                  Highly recommend for this car rental website!"
-                </p>
-                <Name>
-                  <Profile>
-                    <img src={"/images/testimonials/2.png"} alt="user_img" />
-                    <span>
-                      <h4>Savannah Travels</h4>
-                      {/* <p>Novi Sad</p> */}
-                    </span>
-                  </Profile>
-                </Name>
-              </TestimonialBox>
+              {testimonials.map((testimonial: any, index: any) => (
+                <TestimonialBox key={index} theme={theme}>
+                  <Quotes>
+                    <i className="fa-solid fa-quote-right"></i>
+                  </Quotes>
+                  <p>{testimonial.testimonial}</p>
+                  <Name>
+                    <Profile>
+                      <img
+                        src={urlForImage(
+                          testimonial.clientImage?.asset?._ref
+                        ).url()}
+                        alt="user_img"
+                      />
+                      <span>
+                        <h4>{testimonial.clientName}</h4>
+                        {/* <p>Novi Sad</p> */}
+                      </span>
+                    </Profile>
+                  </Name>
+                </TestimonialBox>
+              ))}
             </AllTestimonials>
           </Content>
         </Container>

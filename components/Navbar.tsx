@@ -7,6 +7,9 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { useTheme } from "./Theme";
 import { logout } from "@/utils/firebase/authentication";
 import { media } from "@/utils/media";
+import Avatar from "./Avatar";
+import ProfileMenu from "./ProfileMenu";
+import { useProfileModalContext } from "@/contexts/profile-modal.context";
 
 const ColorSwitcherContainer = styled.div`
   width: 4rem;
@@ -21,7 +24,7 @@ const MobileNavbarDiv = styled.div<{ nav: boolean; theme: any }>`
   top: 0;
   left: -100%;
   background-color: ${(props) => (props.theme === "light" ? "#fff" : "#000")};
-  z-index: 999999;
+  z-index: 999998;
   justify-content: center;
   align-items: center;
   transition: all 0.5s ease-in-out;
@@ -67,6 +70,19 @@ const MobileNavLinks = styled.div<{ theme: any }>`
   gap: 3rem;
   text-align: center;
   li a {
+    text-decoration: none;
+    color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
+    font-weight: 500;
+    transition: all 0.3s;
+    :hover {
+      color: #313131;
+    }
+  }
+  li button {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: ${(props) => (props.theme === "light" ? "#010103" : "#fff")};
     font-weight: 500;
@@ -130,6 +146,8 @@ const HamburgerContainer = styled.div`
 `;
 const NavButtons = styled.div<{ theme: any }>`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 2.7rem;
   font-size: 2rem;
   font-family: "Oswald", sans-serif;
@@ -183,6 +201,11 @@ const NavButtons = styled.div<{ theme: any }>`
   div:hover::after {
     width: 100%;
   }
+  li {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
   ${media("<=tablet")} {
     display: none;
   }
@@ -192,6 +215,7 @@ function Navbar() {
   const [nav, setNav] = useState(false);
   const { user }: any = useAuthContext();
   const { theme }: any = useTheme();
+  const { setIsProfileModalOpened } = useProfileModalContext();
 
   const openNav = () => {
     setNav(!nav);
@@ -245,16 +269,32 @@ function Navbar() {
               </Link>
             </li>
             {user != null ? (
-              <li>
-                <button
-                  onClick={async () => {
-                    await logout();
+              <>
+                <li
+                  onClick={() => {
+                    setIsProfileModalOpened(true);
                   }}
-                  className="navbar__buttons__sign-in"
                 >
-                  Log out
-                </button>
-              </li>
+                  {/* <ProfileMenu /> */}
+                  <div>
+                    <Avatar
+                      size="40px"
+                      image="https://wisdomexperience.org/wp-content/uploads/2019/10/blank-profile-picture-973460_960_720.png"
+                      alt="avatar"
+                    />
+                  </div>
+                </li>
+                {/* <li>
+                  <button
+                    onClick={async () => {
+                      await logout();
+                    }}
+                    className="navbar__buttons__sign-in"
+                  >
+                    Log out
+                  </button>
+                </li> */}
+              </>
             ) : (
               <>
                 <li>
@@ -307,24 +347,36 @@ function Navbar() {
               <Link href="/seller">Become a host</Link>
             </li>
             <li>
-              {" "}
               <Link href="/about">About</Link>
             </li>
             <li>
-              {" "}
               <Link href="/contact">Contact</Link>
             </li>
           </NavLinks>
 
           {user != null ? (
             <NavButtons theme={theme}>
-              <div
+              <li>
+                {/* <ProfileMenu /> */}
+                <div
+                  onClick={() => {
+                    setIsProfileModalOpened(true);
+                  }}
+                >
+                  <Avatar
+                    size="40px"
+                    image="https://wisdomexperience.org/wp-content/uploads/2019/10/blank-profile-picture-973460_960_720.png"
+                    alt="avatar"
+                  />
+                </div>
+              </li>
+              {/* <div
                 onClick={async () => {
                   await logout();
                 }}
               >
                 Log out
-              </div>
+              </div> */}
               <ColorSwitcherContainer>
                 <ColorSwitcher />
               </ColorSwitcherContainer>

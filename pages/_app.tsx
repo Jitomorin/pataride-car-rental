@@ -29,6 +29,11 @@ import { ThemeProvider, useTheme } from "@/components/Theme";
 import ThemeContainer from "./style";
 import Loading from "@/components/Loading";
 import { AuthContextProvider } from "@/contexts/AuthContext";
+import {
+  ProfileModalContextProvider,
+  useProfileModalContext,
+} from "@/contexts/profile-modal.context";
+import ProfileModal from "@/components/ProfileModal";
 
 export interface SharedPageProps {
   draftMode: boolean;
@@ -113,6 +118,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           ) : (
             <Providers>
               <Modals />
+              <ProfileModals />
               {routerPathname === "/login" ||
               routerPathname === "/signup" ? null : (
                 <Navbar />
@@ -140,9 +146,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 function Providers<T>({ children }: PropsWithChildren<T>) {
   return (
-    <NewsletterModalContextProvider>
-      <NavigationDrawer items={navItems}>{children}</NavigationDrawer>
-    </NewsletterModalContextProvider>
+    <ProfileModalContextProvider>
+      <NewsletterModalContextProvider>
+        <NavigationDrawer items={navItems}>{children}</NavigationDrawer>
+      </NewsletterModalContextProvider>
+    </ProfileModalContextProvider>
   );
 }
 
@@ -152,6 +160,14 @@ function Modals() {
     return null;
   }
   return <NewsletterModal onClose={() => setIsModalOpened(false)} />;
+}
+function ProfileModals() {
+  const { isProfileModalOpened, setIsProfileModalOpened } =
+    useProfileModalContext();
+  if (!isProfileModalOpened) {
+    return null;
+  }
+  return <ProfileModal onClose={() => setIsProfileModalOpened(false)} />;
 }
 
 export default MyApp;

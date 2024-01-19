@@ -1,7 +1,10 @@
+import { urlForImage } from "@/sanity/lib/image";
 import { media } from "@/utils/media";
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
+import Tooltip from "./Tooltip";
+import NextImage from "next/image";
 
 const Spinner = styled.div`
   @keyframes rotation {
@@ -45,7 +48,7 @@ const PickCar = styled.div`
   position: relative;
   img {
     width: 100%;
-    margin-top: 6rem;
+    border-radius: 10px;
   }
   ${media("<=tablet")} {
     width: 100%;
@@ -71,6 +74,37 @@ const Price = styled.div<{ theme: any }>`
     font-weight: 700;
   }
 `;
+
+const ButtonContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  @media (max-width: 768px) {
+    align-items: start;
+    margin-top: 5rem;
+    margin: 0 auto;
+  }
+`;
+const LinkContainer = styled.div<{ show: any }>`
+  display: flex;
+  transform: translateY(${(props) => (props.show ? "0" : "100%")});
+  transition: transform 0.4s;
+  justify-content: start;
+  padding: 1.8rem 0rem;
+  z-index: 0;
+
+  @media (max-width: 768px) {
+  }
+`;
+const BookLink = styled.a`
+  width: 100%;
+  transition: ease-in-out 0.3s;
+  &:hover {
+    scale: 1.04;
+  }
+`;
 const Table = styled.div<{ theme: any }>`
   display: grid;
   grid-template-columns: 1fr;
@@ -78,6 +112,20 @@ const Table = styled.div<{ theme: any }>`
   font-size: 1.6rem;
   border-bottom: 1px solid #d5d5d5;
   color: ${(props) => (props.theme === "light" ? "#000" : "#fff")};
+`;
+const BookButton = styled.div<{ theme: any }>`
+  background-color: #f8d521;
+  padding: 1.8rem 1rem;
+  border-radius: 0.3rem;
+  transition: all 0.3s;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1;
+  &:hover {
+    scale: 1.07;
+  }
 `;
 const Column = styled.div`
   display: grid;
@@ -104,71 +152,99 @@ const AnimatedButton = styled.button<{ theme: any }>`
   }
 `;
 
-function CarBox({ data, carID, theme }: any) {
+function CarBox({ car, carID, theme }: any) {
   const [carLoad, setCarLoad] = useState(true);
+  const [showLinks, setShowLinks] = useState(false);
+
   return (
-    <>
-      {data[carID].map((car: any, id: any) => (
-        <Wrapper>
-          {/* car */}
-          <PickCar>
-            {carLoad && <Spinner />}
-            <img
-              style={{ display: carLoad ? "none" : "block" }}
-              src={car.img}
-              alt="car_img"
-              onLoad={() => setCarLoad(false)}
-            />
-          </PickCar>
-          {/* description */}
-          <Description>
-            <Price theme={theme}>
-              <span>Ksh{car.price}</span>/ per day
-            </Price>
-            <Table theme={theme}>
-              <Column>
-                <p>Model</p>
-                <span>{car.model}</span>
-              </Column>
+    <Wrapper>
+      {/* car */}
+      <PickCar>
+        {carLoad && <Spinner />}
+        <img
+          style={{ display: carLoad ? "none" : "block" }}
+          src={urlForImage(car.image?.asset?._ref).url()}
+          alt="car_img"
+          onLoad={() => setCarLoad(false)}
+        />
+      </PickCar>
+      {/* description */}
+      <Description>
+        <Price theme={theme}>
+          <span>Ksh{car.price}</span>/ per day
+        </Price>
+        <Table theme={theme}>
+          <Column>
+            <p>Name</p>
+            <span>{car.name}</span>
+          </Column>
+          <Column>
+            <p>Model</p>
+            <span>{car.model}</span>
+          </Column>
 
-              <Column>
-                <p>Mark</p>
-                <span>{car.mark}</span>
-              </Column>
+          <Column>
+            <p>Make</p>
+            <span>{car.make}</span>
+          </Column>
 
-              <Column>
-                <p>Year</p>
-                <span>{car.year}</span>
-              </Column>
+          <Column>
+            <p>Year</p>
+            <span>{car.year}</span>
+          </Column>
 
-              <Column>
-                <p>Doors</p>
-                <span>{car.doors}</span>
-              </Column>
+          <Column>
+            <p>Seats</p>
+            <span>{car.seats}</span>
+          </Column>
 
-              <Column>
-                <p>AC</p>
-                <span>{car.air}</span>
-              </Column>
+          <Column>
+            <p>Fuel</p>
+            <span>{car.fuel}</span>
+          </Column>
+        </Table>
+        {/* btn cta */}
+        <ButtonContainer>
+          <LinkContainer show={showLinks}>
+            <Tooltip text="Whatsapp us to hire a car">
+              <BookLink target="_blank" href="https://wa.link/x60ux1">
+                <NextImage
+                  src="/whatsapp_logo.webp"
+                  alt="Whatsapp Link"
+                  width={50}
+                  height={50}
+                />
+              </BookLink>
+            </Tooltip>
 
-              <Column>
-                <p>Transmission</p>
-                <span>{car.transmission}</span>
-              </Column>
-
-              <Column>
-                <p>Fuel</p>
-                <span>{car.fuel}</span>
-              </Column>
-            </Table>
-            {/* btn cta */}
-            <AnimatedButton>
-              <Link href="/rent-now">Rent Now</Link>
-            </AnimatedButton>
-          </Description>
-        </Wrapper>
-      ))}
-    </>
+            <Tooltip text="Email us to hire a car">
+              <BookLink target="_blank" href="mailto:info@pata-ride.com">
+                <NextImage
+                  src="/email-icon.webp"
+                  alt="Whatsapp Link"
+                  width={45}
+                  height={45}
+                />
+              </BookLink>
+            </Tooltip>
+          </LinkContainer>
+          <BookButton
+            onClick={() => {
+              setShowLinks(!showLinks);
+              // setSnackbarMessage("Feature not available yet");
+              // setSnackbarOpen(true);
+            }}
+            theme={theme}
+          >
+            {/* <Link href="">Book Ride</Link> */}
+            Book Ride
+          </BookButton>
+        </ButtonContainer>
+        {/* <AnimatedButton>
+          <Link href="/rent-now">Rent Now</Link>
+        </AnimatedButton> */}
+      </Description>
+    </Wrapper>
   );
 }
 

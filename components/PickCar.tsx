@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CarBox from "./CarBox";
 import { CAR_DATA } from "./CarData";
 import styled from "styled-components";
 import Container from "./Container";
 import { useTheme } from "./Theme";
+import { getAllTopCars, getClient } from "@/sanity/lib/client";
 
 const Wrapper = styled.section<{ theme: any }>`
   padding: 10rem 0;
@@ -82,8 +83,9 @@ const PickBoxButton = styled.button<{ theme: any; active: boolean }>`
 `;
 
 function PickCar() {
-  const [active, setActive] = useState("SecondCar");
-  const [colorBtn, setColorBtn] = useState("btn1");
+  const [active, setActive] = useState("");
+  const [colorBtn, setColorBtn] = useState("");
+  const [topCarList, setTopCarList] = useState([]);
   const { theme }: any = useTheme();
 
   const btnID = (id: any) => {
@@ -93,6 +95,16 @@ function PickCar() {
   const coloringButton = (id: any) => {
     return colorBtn !== id;
   };
+
+  useEffect(() => {
+    const client = getClient();
+    const fetchCars = async () => {
+      const cars: any = await getAllTopCars(client);
+      console.log("cars: ", cars);
+      setTopCarList(cars);
+    };
+    fetchCars();
+  }, []);
 
   return (
     <>
@@ -110,18 +122,20 @@ function PickCar() {
             <CarContent>
               {/* pick car */}
               <PickBox theme={theme}>
-                <PickBoxButton
-                  theme={theme}
-                  active={coloringButton("btn1")}
-                  // className={`${coloringButton("btn1")}`}
-                  onClick={() => {
-                    setActive("SecondCar");
-                    btnID("btn1");
-                  }}
-                >
-                  Audi A1 S-Line
-                </PickBoxButton>
-                <PickBoxButton
+                {topCarList.map((car: any, id) => (
+                  <PickBoxButton
+                    theme={theme}
+                    active={coloringButton(car.uid)}
+                    // className={`${coloringButton("btn1")}`}
+                    onClick={() => {
+                      setActive(car.uid);
+                      btnID(car.uid);
+                    }}
+                  >
+                    {car.name}
+                  </PickBoxButton>
+                ))}
+                {/* <PickBoxButton
                   theme={theme}
                   active={coloringButton("btn2")}
                   id="btn2"
@@ -175,10 +189,14 @@ function PickCar() {
                   }}
                 >
                   VW Passat CC
-                </PickBoxButton>
+                </PickBoxButton> */}
               </PickBox>
-
-              {active === "FirstCar" && (
+              {topCarList
+                .filter((doc: any) => doc?.uid === active)
+                .map((car: any, id) => (
+                  <CarBox theme={theme} car={car} carID={id} />
+                ))}
+              {/* {active === "FirstCar" && (
                 <CarBox theme={theme} data={CAR_DATA} carID={0} />
               )}
               {active === "SecondCar" && (
@@ -195,7 +213,7 @@ function PickCar() {
               )}
               {active === "SixthCar" && (
                 <CarBox theme={theme} data={CAR_DATA} carID={5} />
-              )}
+              )} */}
             </CarContent>
           </PickContainer>
         </Container>

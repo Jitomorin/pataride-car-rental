@@ -38,6 +38,10 @@ export const partnersQuery = groq`
 *[_type == "partners"]`;
 export const employeesQuery = groq`
 *[_type == "employee"]`;
+export const testimonialsQuery = groq`
+*[_type == "testimonial"]`;
+export const topCarsQuery = groq`
+*[_type == "topCar"]`;
 export const privacyPolicyQuery = groq`
 *[_type == "privacy-policy"]`;
 export const servicesQuery = groq`
@@ -102,6 +106,17 @@ export interface Category {
   slug?: string;
   description: string;
 }
+export interface TopCar {
+  uid: string;
+  name: string;
+  price: string;
+  image: string;
+  model: string;
+  fuel: string;
+  make: string;
+  year: string;
+  seats: string;
+}
 export interface Post {
   _id: string;
   title?: string;
@@ -141,6 +156,16 @@ export interface Partner {
   company: string;
   website: string;
   logo: {
+    _type: "image";
+    asset: {
+      _ref: string;
+    };
+  };
+}
+export interface Testimonial {
+  testimonial: string;
+  clientName: string;
+  clientImage: {
     _type: "image";
     asset: {
       _ref: string;

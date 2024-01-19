@@ -30,7 +30,7 @@ export default function StickySocialMediaBar() {
       <ShareBar>
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
-            {theme === "light" ? (
+            {/* {theme === "light" ? (
               <img
                 src="/linkedin-icon.png"
                 alt="Linkedin Link"
@@ -44,14 +44,20 @@ export default function StickySocialMediaBar() {
                 width={isMobile ? 45 : 30}
                 height={isMobile ? 45 : 30}
               />
-            )}
-            {/* <LinkedinIcon size={isMobile ? 50 : 40} round={true} /> */}
+            )} */}
+            <LinkedinIcon size={isMobile ? 40 : 30} round={true} />
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
             {/* <TwitterIcon size={50} round={true} /> */}
-            {theme === "light" ? (
+            <img
+              src="/instagram_logo.webp"
+              alt="Instagram Link"
+              width={isMobile ? 50 : 45}
+              height={isMobile ? 50 : 45}
+            />
+            {/* {theme === "light" ? (
               <img
                 src="/instagram-icon.png"
                 alt="Instagram Link"
@@ -65,12 +71,12 @@ export default function StickySocialMediaBar() {
                 width={isMobile ? 45 : 30}
                 height={isMobile ? 45 : 30}
               />
-            )}
+            )} */}
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
-            {theme === "light" ? (
+            {/* {theme === "light" ? (
               <img
                 src="/facebook-icon.png"
                 alt="Facebook Link"
@@ -84,14 +90,14 @@ export default function StickySocialMediaBar() {
                 width={isMobile ? 45 : 30}
                 height={isMobile ? 45 : 30}
               />
-            )}
-            {/* <FacebookIcon size={isMobile ? 50 : 40} round={true} /> */}
+            )} */}
+            <FacebookIcon size={isMobile ? 40 : 30} round={true} />
           </Link>
         </SocialmediaLink>{" "}
         <SocialmediaLink>
           <Link target="_blank" href="#" passHref>
             {/* <TwitterIcon size={50} round={true} /> */}
-            {theme === "light" ? (
+            {/* {theme === "light" ? (
               <img
                 src="/whatsapp-icon.png"
                 alt="Whatsapp Link"
@@ -105,7 +111,13 @@ export default function StickySocialMediaBar() {
                 width={isMobile ? 45 : 30}
                 height={isMobile ? 45 : 30}
               />
-            )}
+            )} */}
+            <img
+              src="/whatsapp_logo.webp"
+              alt="Whatsapp Link"
+              width={isMobile ? 50 : 45}
+              height={isMobile ? 50 : 45}
+            />
           </Link>
         </SocialmediaLink>
       </ShareBar>

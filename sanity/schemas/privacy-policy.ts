@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "privacy-policy",
-  title: "Privacy Policy",
+  title: "Policies",
   type: "document",
   fields: [
     defineField({

@@ -8,17 +8,18 @@ import { deskTool } from "sanity/desk";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "./sanity/env";
-import { schema } from "./sanity/schema";
 import authorType from "./sanity/schemas/author";
 import postType from "./sanity/schemas/post";
 import employeeType from "./sanity/schemas/employee";
 import settingsType from "./sanity/schemas/settings";
 import serviceType from "./sanity/schemas/service";
 import partnerType from "./sanity/schemas/partner";
+import testimonialType from "./sanity/schemas/testimonial";
 import categorytype from "./sanity/schemas/category";
 import { settingsStructure } from "./plugins/settings";
 import { previewDocumentNode } from "./plugins/previewPane";
 import privacyPolicyType from "./sanity/schemas/privacy-policy";
+import topCarType from "./sanity/schemas/topCar";
 
 const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Pata-ride";
 
@@ -33,6 +34,8 @@ export default defineConfig({
       // authorType,
       // postType,
       employeeType,
+      testimonialType,
+      topCarType,
       // serviceType,
       // categorytype,
       privacyPolicyType,
@@ -40,7 +43,7 @@ export default defineConfig({
   },
   plugins: [
     deskTool({
-      structure: settingsStructure(settingsType),
+      // structure: settingsStructure(settingsType),
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
       defaultDocumentNode: previewDocumentNode(),
     }),

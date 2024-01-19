@@ -21,6 +21,10 @@ import {
   Partner,
   privacyPolicyQuery,
   PrivacyPolicy,
+  Testimonial,
+  testimonialsQuery,
+  topCarsQuery,
+  TopCar,
 } from "./queries";
 import { createClient, type SanityClient } from "next-sanity";
 
@@ -61,6 +65,9 @@ export async function getAllPartners(client: SanityClient): Promise<Partner[]> {
 export async function getAllServices(client: SanityClient): Promise<Service[]> {
   return (await client.fetch(servicesQuery)) || [];
 }
+export async function getAllTopCars(client: SanityClient): Promise<TopCar[]> {
+  return (await client.fetch(topCarsQuery)) || [];
+}
 export async function getAllCategories(
   client: SanityClient
 ): Promise<Category[]> {
@@ -70,6 +77,11 @@ export async function getAllEmployees(
   client: SanityClient
 ): Promise<Employee[]> {
   return (await client.fetch(employeesQuery)) || [];
+}
+export async function getAllTestimonials(
+  client: SanityClient
+): Promise<Testimonial[]> {
+  return (await client.fetch(testimonialsQuery)) || [];
 }
 export async function getPrivacyPolicy(
   client: SanityClient

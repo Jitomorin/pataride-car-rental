@@ -1,1 +1,3 @@
-{}
+{
+  "/cms/[[...index]]/page": "app/cms/[[...index]]/page.js"
+}
