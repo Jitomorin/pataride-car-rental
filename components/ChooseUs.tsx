@@ -117,7 +117,7 @@ function ChooseUs() {
           <ChooseContainer>
             <ChooseImage
               src={"/images/chooseUs/main.png"}
-              style={{ width: "65%", height: "65%" }}
+              style={{ width: "45%", height: "45%" }}
               alt="car_img"
             />
             <TextContainer>
