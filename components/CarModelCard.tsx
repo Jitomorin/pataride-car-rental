@@ -109,10 +109,11 @@ const Button = styled.button`
 const CarModelCard = (car: any) => {
   const { user }: any = useAuthContext();
   const { theme }: any = useTheme();
+  console.log("Car: ", car);
   return (
     <Wrapper theme={theme}>
       <ImageContainer>
-        <img src={car.car.image} alt="car_img" />
+        <img src={car.car.image[0]} alt="car_img" />
         <Description theme={theme}>
           <PriceContainer>
             <Name>

@@ -21,9 +21,7 @@ import {
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 
-type OurteamProps = { employees: Employee[] };
-
-export default function OurTeam({ employees }: OurteamProps) {
+export default function ImageSliderComponent({ images }: any) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -43,16 +41,7 @@ export default function OurTeam({ employees }: OurteamProps) {
   return (
     <div className="flex justify-center">
       <Separator />
-      <OurteamWrapper>
-        <TitleContent>
-          <Title>Meet Our Team:</Title>
-          <RichText>
-            Our team is a blend of diverse talents, each contributing unique
-            expertise and perspectives. Together, we form a powerhouse of HR
-            knowledge, creativity, and dedication.
-          </RichText>
-        </TitleContent>
-        <SliderSeperator />
+      <Wrapper>
         <Swiper
           modules={[Navigation, Autoplay, A11y]}
           slidesPerView={1}
@@ -61,95 +50,22 @@ export default function OurTeam({ employees }: OurteamProps) {
           navigation={isMobile}
           loop
         >
-          {employees.map((employee, idx) => (
+          {images.map((image: any, idx: any) => (
             <SwiperSlide key={idx}>
-              <OurteamCard>
-                {/* <NextImage
-                  src={singleTestimonial.companyLogoUrl}
-                  alt={`${singleTestimonial.author.name}'s company logo`}
-                  width={200}
-                  height={40}
-                />
-                <Content>“{singleTestimonial.content}”</Content> */}
-                <AuthorContainer>
-                  <AuthorImageContainer>
-                    <NextImage
-                      src={urlForImage(employee.image?.asset?._ref).url()}
-                      alt={"Author's photo"}
-                      width={200}
-                      height={200}
-                      objectFit="cover"
-                    />
-                  </AuthorImageContainer>
-                  <AuthorContent>
-                    <AuthorName>{employee.fullName}</AuthorName>
-                    <AuthorTitle>{employee.position}</AuthorTitle>
-                    <AuthorSocials>
-                      {employee.linkedin && (
-                        <SocialmediaLink>
-                          <NextLink href={employee.linkedin} passHref>
-                            {/* <LinkedinIcon
-                              className="pl-6"
-                              size={40}
-                              round={true}
-                            /> */}
-                            <FontAwesomeIcon
-                              // className="text-[rgb(255, 175, 1)]"
-                              icon={faLinkedin}
-                              width={isMobile ? 30 : 20}
-                              height={isMobile ? 30 : 20}
-                            />
-                          </NextLink>
-                        </SocialmediaLink>
-                      )}
-                      {employee.facebook && (
-                        <SocialmediaLink>
-                          <NextLink
-                            href={employee.facebook}
-                            passHref
-                            className="pl-6"
-                          >
-                            {/* <FacebookIcon size={40} round={true} /> */}
-                            <FontAwesomeIcon
-                              icon={faFacebook}
-                              width={isMobile ? 30 : 20}
-                              height={isMobile ? 30 : 20}
-                            />
-                          </NextLink>
-                        </SocialmediaLink>
-                      )}
-                      {employee.instagram && (
-                        <SocialmediaLink>
-                          <NextLink href={employee.instagram} passHref>
-                            {/* <TwitterIcon size={40} round={true} /> */}
-                            {/* <Image
-                              src="/instagram_logo.png"
-                              alt="instagram_link"
-                              width={55}
-                              height={55}
-                            /> */}
-                            <FontAwesomeIcon
-                              icon={faInstagram}
-                              width={isMobile ? 30 : 20}
-                              height={isMobile ? 30 : 20}
-                            />
-                          </NextLink>
-                        </SocialmediaLink>
-                      )}
-                    </AuthorSocials>
-                  </AuthorContent>
-                </AuthorContainer>
-              </OurteamCard>
+              <Card>
+                <img src={image} alt={`image`} />
+                {/* <Content>“{singleTestimonial.content}”</Content> */}
+              </Card>
             </SwiperSlide>
           ))}
         </Swiper>
-      </OurteamWrapper>
+      </Wrapper>
       {/* <Separator /> */}
     </div>
   );
 }
 
-const OurteamWrapper = styled(Container)`
+const Wrapper = styled(Container)`
   position: relative;
   margin-bottom: 3rem;
   margin-top: 9rem;
@@ -171,10 +87,12 @@ const OurteamWrapper = styled(Container)`
   }
 `;
 
-const OurteamCard = styled.div`
+const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  img {
+  }
 
   & > *:not(:first-child) {
     margin-top: 5rem;

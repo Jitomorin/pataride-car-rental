@@ -101,11 +101,13 @@ const RegisterCar = () => {
   const [carModel, setCarModel] = React.useState("");
   const [carYear, setCarYear] = React.useState(2010);
   const [carPrice, setCarPrice] = React.useState("");
+  const [carNumberPlate, setCarNumberPlate] = React.useState("");
   const [carSeats, setCarSeats] = React.useState(5);
   const [carFuel, setCarFuel] = React.useState("Diesel");
   const [carDescription, setCarDescription] = React.useState("");
-  const [carImage, setCarImage] = React.useState();
+  const [carImage, setCarImage] = React.useState<any[]>([]);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] =
     React.useState("Default Message");
 
@@ -124,13 +126,16 @@ const RegisterCar = () => {
     setCarSeats(5);
     setCarFuel("Diesel");
     setCarDescription("");
-    setCarImage(undefined);
+    setCarImage([]);
   };
   const carNameCheck = () => {
     return carName !== "";
   };
   const carPriceCheck = () => {
     return carPrice !== "";
+  };
+  const carNumberPlateCheck = () => {
+    return carNumberPlate !== "";
   };
   const carModelCheck = () => {
     return carModel !== "";
@@ -148,7 +153,7 @@ const RegisterCar = () => {
     return carDescription !== "";
   };
   const carImageCheck = () => {
-    return carImage !== undefined;
+    return carImage.length > 0;
   };
 
   const registerCar = async () => {
@@ -160,10 +165,12 @@ const RegisterCar = () => {
       carSeatsCheck() &&
       carFuelCheck() &&
       carDescriptionCheck() &&
-      carImageCheck()
+      carImageCheck() &&
+      carNumberPlateCheck()
     ) {
       console.log("All fields are filled");
       const rentalUid = uuidv4();
+      setLoading(true);
       await uploadRentalImage(carImage!, rentalUid, {
         carName,
         carPrice,
@@ -173,11 +180,13 @@ const RegisterCar = () => {
         carSeats,
         carDescription,
         carFuel,
+        carNumberPlate,
       }).then((res) => {
         if (res) {
+          setLoading(false);
           setSnackbarMessage("Car registered successfully");
           setSnackbarOpen(true);
-          clearFields();
+          // clearFields();
         } else {
           setSnackbarMessage("something went wrong");
           setSnackbarOpen(true);
@@ -214,6 +223,18 @@ const RegisterCar = () => {
                 type="text"
                 placeholder="Enter your cars full name"
               ></input>
+              <label>
+                Number Plate
+                {!carNumberPlateCheck() ? <b>*</b> : ""}
+              </label>
+              <input
+                value={carNumberPlate}
+                onChange={(e: any) => {
+                  setCarNumberPlate(e.target.value);
+                }}
+                type="text"
+                placeholder="Enter your cars number plate"
+              ></input>
 
               <label>
                 Price per day
@@ -228,7 +249,7 @@ const RegisterCar = () => {
                 placeholder="Enter your rate per day"
               ></input>
               <label>
-                Upload an image
+                Upload images of your car
                 {!carImageCheck() ? <b>*</b> : ""}
               </label>
               <input
@@ -236,10 +257,61 @@ const RegisterCar = () => {
                 // value={carImage}
                 accept="image/*"
                 onChange={(e: any) => {
+                  console.log("car image: ", carImage);
                   if (e.target.files.length > 0) {
                     const file = e.target.files[0];
                     // Now you can send this file to your server or read it in the client
-                    setCarImage(file);
+                    setCarImage((prev: any) => {
+                      return [...prev, file];
+                    });
+                    console.log(file);
+                  }
+                }}
+              />
+              <input
+                type="file"
+                // value={carImage}
+                accept="image/*"
+                onChange={(e: any) => {
+                  console.log("car image: ", carImage);
+                  if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    // Now you can send this file to your server or read it in the client
+                    setCarImage((prev: any) => {
+                      return [...prev, file];
+                    });
+                    console.log(file);
+                  }
+                }}
+              />
+              <input
+                type="file"
+                // value={carImage}
+                accept="image/*"
+                onChange={(e: any) => {
+                  console.log("car image: ", carImage);
+                  if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    // Now you can send this file to your server or read it in the client
+                    setCarImage((prev: any) => {
+                      return [...prev, file];
+                    });
+                    console.log(file);
+                  }
+                }}
+              />
+              <input
+                type="file"
+                // value={carImage}
+                accept="image/*"
+                onChange={(e: any) => {
+                  console.log("car image: ", carImage);
+                  if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    // Now you can send this file to your server or read it in the client
+                    setCarImage((prev: any) => {
+                      return [...prev, file];
+                    });
                     console.log(file);
                   }
                 }}
@@ -340,7 +412,7 @@ const RegisterCar = () => {
                   registerCar();
                 }}
               >
-                Register your car
+                {loading ? "Loading..." : "Register Car"}
               </button>
             </form>
           </EnlistForm>

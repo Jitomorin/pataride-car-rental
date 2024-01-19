@@ -113,7 +113,7 @@ function PickCar() {
           <PickContainer>
             <TitleContainer theme={theme}>
               {/* <h3>Vehicle Models</h3> */}
-              <h2>Our top rentals</h2>
+              <h2>Our top hires</h2>
               <p>
                 Choose from our top car models and book your ride in a few easy
                 steps

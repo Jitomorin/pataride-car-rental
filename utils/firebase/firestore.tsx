@@ -66,13 +66,14 @@ export async function addRental(
   rentalUid: string,
   name: string,
   price: string,
-  image: string,
+  image: string[],
   model: string,
   year: string,
   make: string,
   seats: string,
   description: string,
-  fuel: string
+  fuel: string,
+  numberPlate: string
 ) {
   await setDoc(doc(db, "rentals", rentalUid), {
     name,
@@ -85,6 +86,7 @@ export async function addRental(
     description,
     fuel,
     uid: rentalUid,
+    numberPlate,
     availability: true,
   });
 }

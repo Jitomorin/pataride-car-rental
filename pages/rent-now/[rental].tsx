@@ -3,6 +3,7 @@ import { SharedPageProps } from "../_app";
 import styled from "styled-components";
 import { GetServerSideProps, GetStaticPathsResult, GetStaticProps } from "next";
 import NextImage from "next/image";
+import ImageGallery from "react-image-gallery";
 import {
   getAllLinks,
   getAllServiceSlugs,
@@ -24,6 +25,8 @@ import { useTheme } from "@/components/Theme";
 import Container from "@/components/Container";
 import Snackbar from "@/components/Snackbar";
 import Tooltip from "@/components/Tooltip";
+import Partners from "@/views/HomePage/Partners";
+import ImageSliderComponent from "@/components/ImageSliderComponent";
 
 // interface pageProps extends SharedPageProps {
 //     service: Service;
@@ -39,6 +42,12 @@ interface Query {
 const Wrapper = styled.section<{ theme: any }>`
   background-color: ${(props) =>
     props.theme === "light" ? "#fff" : "#17191a"};
+
+  width: 100%;
+  height: auto;
+  img {
+    border-radius: 10px;
+  }
 `;
 const BookButton = styled.div<{ theme: any }>`
   background-color: #f8d521;
@@ -168,7 +177,7 @@ export default function carSlugRoute(props: CarProps) {
           style={
             theme === "light"
               ? {
-                  width: "80%",
+                  width: "100%",
                   alignSelf: "center",
                   display: "flex",
                   flexDirection: "column",
@@ -176,7 +185,7 @@ export default function carSlugRoute(props: CarProps) {
                   color: "#010103",
                 }
               : {
-                  width: "80%",
+                  width: "100%",
                   alignSelf: "center",
                   display: "flex",
                   flexDirection: "column",
@@ -194,7 +203,9 @@ export default function carSlugRoute(props: CarProps) {
             }}
           >
             <div className="car-model-card__img">
-              <img src={car.image} alt="" />
+              {/* <img src={car.image} alt="" /> */}
+              {/* <ImageSlider images={car.image} /> */}
+              <ImageSliderComponent images={car.image} />
             </div>
             <ContainerRow>
               <div className="car-model-card__text">
