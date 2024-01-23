@@ -316,6 +316,38 @@ const RegisterCar = () => {
                   }
                 }}
               />
+              <input
+                type="file"
+                // value={carImage}
+                accept="image/*"
+                onChange={(e: any) => {
+                  console.log("car image: ", carImage);
+                  if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    // Now you can send this file to your server or read it in the client
+                    setCarImage((prev: any) => {
+                      return [...prev, file];
+                    });
+                    console.log(file);
+                  }
+                }}
+              />
+              <input
+                type="file"
+                // value={carImage}
+                accept="image/*"
+                onChange={(e: any) => {
+                  console.log("car image: ", carImage);
+                  if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    // Now you can send this file to your server or read it in the client
+                    setCarImage((prev: any) => {
+                      return [...prev, file];
+                    });
+                    console.log(file);
+                  }
+                }}
+              />
               <label>
                 Model
                 {!carModelCheck() ? <b>*</b> : ""}
