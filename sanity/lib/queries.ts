@@ -44,6 +44,8 @@ export const topCarsQuery = groq`
 *[_type == "topCar"]`;
 export const linksQuery = groq`
 *[_type == "link"]`;
+export const aboutQuery = groq`
+*[_type == "about"]`;
 export const privacyPolicyQuery = groq`
 *[_type == "privacy-policy"]`;
 export const servicesQuery = groq`
@@ -96,6 +98,10 @@ interface Slug {
 export interface Author {
   name?: string;
   picture?: any;
+}
+export interface AboutInterface {
+  mission: string;
+  aboutText: string;
 }
 export interface PrivacyPolicy {
   title?: string;
