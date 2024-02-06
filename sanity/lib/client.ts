@@ -27,6 +27,8 @@ import {
   TopCar,
   linksQuery,
   Link,
+  aboutQuery,
+  AboutInterface,
 } from "./queries";
 import { createClient, type SanityClient } from "next-sanity";
 
@@ -66,6 +68,11 @@ export async function getAllPartners(client: SanityClient): Promise<Partner[]> {
 }
 export async function getAllLinks(client: SanityClient): Promise<Link[]> {
   return (await client.fetch(linksQuery)) || [];
+}
+export async function getAllAbout(
+  client: SanityClient
+): Promise<AboutInterface[]> {
+  return (await client.fetch(aboutQuery)) || [];
 }
 export async function getAllServices(client: SanityClient): Promise<Service[]> {
   return (await client.fetch(servicesQuery)) || [];
