@@ -159,11 +159,7 @@ function About() {
               <h3>About Company</h3>
               <h2>You start the engine and your adventure begins</h2>
               <p>
-                Certain but she but shyness why cottage. Guy the put instrument
-                sir entreaties affronting. Pretended exquisite see cordially the
-                you. Weeks quiet do vexed or whose. Motionless if no to
-                affronting imprudence no precaution. My indulged as disposal
-                strongly attended.
+                Welcome to Pata-ride! We're a dynamic car-rental company with a passion for connecting people who want to rent out cars to their hosts. We've become a trusted name in the industry. Our talented team delivers top-notch car rental services, prioritizing both client and host satisfaction. Join us on our journey as we push boundaries and make a positive impact.
               </p>
               <TextIconBox>
                 <Icon theme={theme}>
