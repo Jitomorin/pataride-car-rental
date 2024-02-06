@@ -9,13 +9,15 @@ import { getAllData } from "@/utils/firebase/firestore";
 import styled from "styled-components";
 import { useTheme } from "@/components/Theme";
 import Container from "@/components/Container";
+import { getAllAbout, getClient } from "@/sanity/lib/client";
+import { AboutInterface } from "@/sanity/lib/queries";
 
 const Wrapper = styled.section<{ theme: any }>`
   background-color: ${(props) =>
     props.theme === "light" ? "#fff" : "#050505"};
 `;
 const AboutMain = styled.div<{ theme: any }>`
-  margin 5rem auto;
+  margin: 5rem auto;
   display: flex;
   gap: 5rem;
   max-width: 90rem;
@@ -83,13 +85,19 @@ const TextContainer = styled.div<{ theme: any }>`
 `;
 
 const TextIconBox = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 4rem;
+  display: flex;
+  justify-content: end;
+  span p {
+    margin: auto 0;
+    padding: 0;
+    align-items: center;
+    font-size: 1.7rem;
+  }
+
   @media (max-width: 520px) {
-    grid-template-columns: 1fr;
+    /* grid-template-columns: 1fr; */
     margin: 0 auto;
-    gap: 0;
+    /* gap: 0; */
 
     p {
       margin-top: 0;
@@ -136,13 +144,20 @@ const Icon = styled.div<{ theme: any }>`
 function About() {
   const [numberOfRentals, setNumberOfRentals] = useState(0);
   const { theme }: any = useTheme();
+  const [aboutText, setAboutText] = useState<AboutInterface[]>([]);
 
   useEffect(() => {
+    const client = getClient();
     const fetchRentals = async () => {
       const data = await getAllData("rentals");
       setNumberOfRentals(data.length);
     };
+    const fetchAboutText = async () => {
+      const data: AboutInterface[] = await getAllAbout(client);
+      setAboutText(data);
+    };
     fetchRentals();
+    fetchAboutText();
   }, []);
 
   return (
@@ -156,11 +171,20 @@ function About() {
               alt="car-renting"
             />
             <TextContainer theme={theme}>
-              <h3>About Company</h3>
+              {aboutText.map((about: AboutInterface) => {
+                return (
+                  <>
+                    <h3>About Company</h3>
+                    <h2>{about.mission}</h2>
+                    <p>{about.aboutText}</p>
+                  </>
+                );
+              })}
+              {/* <h3>About Company</h3>
               <h2>You start the engine and your adventure begins</h2>
               <p>
                 Welcome to Pata-ride! We're a dynamic car-rental company with a passion for connecting people who want to rent out cars to their hosts. We've become a trusted name in the industry. Our talented team delivers top-notch car rental services, prioritizing both client and host satisfaction. Join us on our journey as we push boundaries and make a positive impact.
-              </p>
+              </p> */}
               <TextIconBox>
                 <Icon theme={theme}>
                   <img src={"/images/about/car-icon.png"} alt="car-icon" />
