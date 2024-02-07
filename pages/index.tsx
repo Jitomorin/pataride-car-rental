@@ -17,10 +17,7 @@ export default function Homepage() {
     <>
       <Head>
         <title>{EnvVars.SITE_NAME}</title>
-        <meta
-          name="description"
-          content="We empower organizations through strategic HR solutions. We bridge skill gaps, foster diversity, and optimize workforce potential, delivering comprehensive HR consultancy services that ensure compliance, boost engagement, and drive sustainable growth."
-        />
+        <meta name="description" content="A car rental website" />
       </Head>
       <Hero />
       {/* <RestAPI /> */}
